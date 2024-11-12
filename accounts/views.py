@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 # Create your views here.
 from .forms import *
 
-User = get_user_model
+User = get_user_model()
 
 ############################################################# REGISTER CANDIDATE ########################################################
 ############################################################# REGISTER CANDIDATE ########################################################
@@ -68,7 +68,7 @@ def login_user(request):
     if user is not None and user.is_active:
       login(request, user)
       if next == '':
-        return redirect('app:dashboard')
+        return redirect('dashboard')
       else:
         return redirect('next')
     else:
@@ -114,10 +114,10 @@ def update_profile(request, pk):
     if form.is_valid():
       form.save()
       messages.success('request', 'Your Profile has been updated.....')
-      return redirect(reverse('updateprofile', args= [user.pk]))
+      return redirect(reverse('update_profile', args= [user.pk]))
     else:
       messages.warning(request, 'Something went Wrong')
-      return redirect(reverse('updateprofile', args= [user.pk]))
+      return redirect(reverse('update_profile', args= [user.pk]))
   else:
     form = UpdateProfileForm()
     context = {'form': form}
