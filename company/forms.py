@@ -4,9 +4,9 @@ from company.models import Company
 class AddCompanyForm(forms.ModelForm):
   class Meta:
     model = Company
-    exclude = ('user')
+    exclude = ['user']
 
 class UpdateComapnyForm(forms.ModelForm):
   class Meta:
     model = Company
-    exclude = ('user')
+    exclude = ['user']
