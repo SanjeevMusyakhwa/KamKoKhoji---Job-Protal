@@ -61,8 +61,8 @@ def login_user(request):
     next = request.GET['next']
   
   if request.method == 'POST':
-    username = request.POST.get['username']
-    password = request.POST.get['password']
+    username = request.POST.get('username')
+    password = request.POST.get('password')
     user = authenticate(request, username = username, password = password)
 
     if user is not None and user.is_active:
@@ -70,7 +70,7 @@ def login_user(request):
       if next == '':
         return redirect('dashboard')
       else:
-        return redirect('next')
+        return redirect(next)
     else:
       messages.warning(request, 'Something Went Wrong. Please try again later')
       return redirect('accounts:login')
