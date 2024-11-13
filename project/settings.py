@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'resume',
     'dashboard',
     'website',
+    'job',
 
 
 # Third party app
