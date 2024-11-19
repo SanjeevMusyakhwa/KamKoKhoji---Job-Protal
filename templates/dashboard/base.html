@@ -5,250 +5,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JobSphere {% block title %}
-      
-    {% endblock title %}</title>
+    <title>JobSphere {% block title %}{% endblock title %}</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
 
+    <!-- Favicon -->
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
 
-    <!--Material Icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
+    <!-- Material Icon -->
+    <link rel="stylesheet" href="{% static 'css/materialdesignicons.min.css' %}" />
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}" />
 
-    <!-- selectize css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}" />
+    <!-- Selectize CSS -->
+    <link rel="stylesheet" href="{% static 'css/selectize.css' %}" />
 
-    <!--Slider-->
+    <!-- Slider CSS -->
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
     <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" />
     <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}" />
 
-    <!-- Custom  Css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <!-- Side Navigation CSS -->
+    <link rel="stylesheet" href="{% static 'css/side_nav.css' %}" />
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 
 <body>
-    <!-- Loader -->
-    <!-- <div id="preloader">
-        <div id="status">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Loader -->
-
-    <!-- Navigation Bar-->
     <header id="topnav" class="defaultscroll scroll-active">
-       
-
-        <!-- Menu Start -->
         <div class="container">
-            <!-- Logo container-->
-            <div>
-                <a href="index.html" class="logo">
-                    <img src="images/logo-light.png" alt="" class="logo-light" height="18" />
-                    <img src="images/logo-dark.png" alt="" class="logo-dark" height="18" />
-                </a>
-            </div>                 
-            <!--end login button-->
             {% if request.user.is_authenticated %}
-              
             <div class="buy-button">
-                <a href="{% url 'accounts:logout_user' %}" class="btn btn-primary ml-3"><i class="mdi mdi-logout"></i> Logout</a>
-            </div>
-            <div class="buy-button">
-                <a href="post-a-job.html" class="btn btn-success ml-3"><i class="mdi mdi-folder"></i> Dashboard</a>
-            </div><!--end login button-->
-            
-            {% else %}
-            <div class="buy-button">
-                <a href="{% url 'accounts:login_user' %}" class="btn btn-success ml-3"><i class="mdi mdi-login"></i> Login</a>
-            </div>
-            <div class="buy-button">
-                <a href="{% url 'accounts:register_candidate' %}" class="btn btn-primary ml-3"><i class="mdi mdi-account-multiple"></i> Candidate</a>
-            </div><!--end login button-->
-            <div class="buy-button">
-                <a href="{% url 'accounts:register_recruiter' %}" class="btn btn-info ml-3"><i class="mdi mdi-account"></i> Recruiter </a>
+                <a href="post-a-job.html" class="text-center text-white">
+                    <i class="mdi mdi-account mr-3"></i>{{ request.user.first_name }} {{ request.user.last_name }}
+                </a>
             </div>
             {% endif %}
-            <!-- End Logo container-->
-            <div class="menu-extras">
-                <div class="menu-item">
-                    <!-- Mobile menu toggle-->
-                    <a class="navbar-toggle">
-                        <div class="lines">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </a>
-                    <!-- End mobile menu toggle-->
-                </div>
-            </div>
     
-            <div id="navigation">
-                <!-- Navigation Menu-->   
-                <ul class="navigation-menu">
-                    <li><a href="{% url 'website:home' %}">Home</a></li>
-                    <li class="has-submenu">
-                        <a href="javascript:void(0)">Jobs</a><span class="menu-arrow"></span>
-                        <ul class="submenu">
-                            <li><a href="job-list.html">Job List</a></li>
-                            <li><a href="job-grid.html">Job Grid</a></li>
-                            <li><a href="job-details.html">Job Details</a></li>
-                            <li><a href="job-details-2.html">Job Details-2</a></li>
-                        </ul>
-                    </li>
-    
-                    <li class="has-submenu">
-                        <a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
-                        <ul class="submenu">
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="team.html">Team</a></li>
-                            <li><a href="faq.html">Faqs</a></li>
-                            <li><a href="pricing.html">Pricing plans</a></li>
-                            <li class="has-submenu"><a href="javascript:void(0)"> Candidates</a><span class="submenu-arrow"></span>
-                                <ul class="submenu">
-                                    <li><a href="candidates-listing.html">Candidates Listing</a></li>
-                                    <li><a href="candidates-profile.html">Candidates Profile</a></li>
-                                    <li><a href="create-resume.html">Create Resume</a></li>
-                                </ul>  
-                            </li>
-                            <li class="has-submenu"><a href="javascript:void(0)"> Blog</a><span class="submenu-arrow"></span>
-                                <ul class="submenu">
-                                    <li><a href="blog-grid.html">Blogs</a></li>
-                                    <li><a href="blog-sidebar.html">Blog Sidebar</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                </ul>  
-                            </li>
-                            <li class="has-submenu"><a href="javascript:void(0)"> Employers</a><span class="submenu-arrow"></span>
-                                <ul class="submenu">
-                                    <li><a href="employers-list.html">Employers List</a></li>
-                                    <li><a href="company-detail.html">Company Detail</a></li>
-                                </ul>  
-                            </li>
-                            <!-- <li class="has-submenu"><a href="javascript:void(0)"> User Pages</a><span class="submenu-arrow"></span>
-                                <ul class="submenu">
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="signup.html">Signup</a></li>
-                                    <li><a href="recovery_passward.html">Forgot Password</a></li>
-                                </ul>  
-                            </li> -->
-                            <li><a href="components.html"> Components</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{% url 'website:contact' %}">Contact</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'website:about' %}">About Us</a>
-                    </li>
-                </ul><!--end navigation menu-->
-            </div><!--end navigation-->
-        </div><!--end container-->
-        <!--end end-->
-    </header><!--end header-->
-    <!-- Navbar End -->
 
+            <!-- Sidebar Navigation -->
+            <div id="side-navigation" class="side-nav">
+
+                <ul class="side-navigation-menu mt-5 ml-2 p-2">
+                    <li><a href="{% url 'website:home' %}"><i class="mdi mdi-home"></i> Home</a></li>
+                    <li><a href="job-list.html"><i class="mdi mdi-domain"></i> Company Profile</a></li>
+                    <li><a href="job-grid.html"><i class="mdi mdi-briefcase"></i> Job List</a></li>
+                    <li><a href="job-details.html"><i class="mdi mdi-account-group"></i> All Applicants</a></li>
+                    <li><a href="job-details-2.html"><i class="mdi mdi-check-circle"></i> Shortlisted Resumes</a></li>
+                    <li><a href="job-details-2.html"><i class="mdi mdi-bell"></i> Resume Alerts</a></li>
+                    <li><a href="job-details-2.html"><i class="mdi mdi-message"></i> Messages</a></li>
+                    <li><a href="{% url 'website:contact' %}"><i class="mdi mdi-email"></i> Contact</a></li>
+                    <li><a href="{% url 'website:about' %}"><i class="mdi mdi-information"></i> About Us</a></li>
+                    <li><a href="{% url 'website:about' %}"><i class="mdi mdi-information"></i> Change Password</a></li>
+                    <li><a href="{% url 'website:about' %}"><i class="mdi mdi-information"></i> View Profile</a></li>
+                    <li><a href="{% url 'website:about' %}"><i class="mdi mdi-information"></i> Logout</a></li>
+                    <li><a href="{% url 'website:about' %}"><i class="mdi mdi-information"></i> Delete Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Block -->
     {% block content %}
-      
     {% endblock content %}
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
-                    <a href="javascript:void(0)"><img src="images/logo-light.png" height="20" alt=""></a>
-                    <p class="mt-4">At vero eos et accusamus et iusto odio dignissim os ducimus qui blanditiis praesentium</p>
+                <!-- Company Info -->
+                <div class="col-lg-3 col-12 mb-4">
+                    <a href="javascript:void(0)">
+                        <img src="{% static 'images/logo-light.png' %}" height="20" alt="Footer Logo">
+                    </a>
+                    <p class="mt-4">At vero eos et accusamus et iusto odio dignissim os ducimus qui blanditiis
+                        praesentium</p>
                     <ul class="social-icon social list-inline mb-0">
-                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-twitter"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-instagram"></i></a>
+                        </li>
                         <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-google"></i></a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                    <p class="text-white mb-4 footer-list-title">Company</p>
-                    <ul class="list-unstyled footer-list">
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> About Us</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Media & Press</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Career</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Blog</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Pricing</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Marketing</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> CEOs </a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Agencies</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Our Apps</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                    <p class="text-white mb-4 footer-list-title">Resources</p>
-                    <ul class="list-unstyled footer-list">
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Support</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Privacy Policy</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Terms</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Accounting </a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> Billing</a></li>
-                        <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right"></i> F.A.Q.</a></li>
-                    </ul>
-                </div>
-            
-                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                    <p class="text-white mb-4 footer-list-title f-17">Business Hours</p>
-                    <ul class="list-unstyled text-foot mt-4 mb-0">
-                        <li>Monday - Friday : 9:00 to 17:00</li>
-                        <li class="mt-2">Saturday : 10:00 to 15:00</li>
-                        <li class="mt-2">Sunday : Day Off (Holiday)</li>
-                    </ul>
-                </div>
+                <!-- Add additional footer columns here -->
             </div>
         </div>
     </footer>
-    <!-- footer end -->
-    <hr>
-    <footer class="footer footer-bar">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="">
-                        <p class="mb-0">© 2019 Jobya. Design with <i class="mdi mdi-heart text-danger"></i> by Themesdesign.</p>
-                    </div>
-                </div>
-            </div>
-        </div><!--end container-->
-    </footer><!--end footer-->
-    <!-- Footer End -->
 
-    <!-- Back to top -->
-    <a href="#" class="back-to-top rounded text-center" id="back-to-top"> 
-        <i class="mdi mdi-chevron-up d-block"> </i> 
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top">
+        <i class="mdi mdi-chevron-up"></i>
     </a>
-    <!-- Back to top -->
 
-    <!-- javascript -->
+    <!-- JavaScript -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/jquery.easing.min.js' %}"></script>
     <script src="{% static 'js/plugins.js' %}"></script>
-
-    <!-- selectize js -->
     <script src="{% static 'js/selectize.min.js' %}"></script>
     <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
-
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/counter.int.js' %}"></script>
-
     <script src="{% static 'js/app.js' %}"></script>
     <script src="{% static 'js/home.js' %}"></script>
-
 </body>
+
 </html>

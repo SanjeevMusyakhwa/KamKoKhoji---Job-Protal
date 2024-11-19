@@ -1020,7 +1020,7 @@ p {
 #topnav {
   position: fixed;
   right: 0;
-  left: 0;
+  left: 250px;
   top: 0;
   z-index: 99;
   background-color: #a098c4;
