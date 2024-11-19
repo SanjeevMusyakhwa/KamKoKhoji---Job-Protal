@@ -5,9 +5,20 @@ from django import forms
 User = get_user_model()
 
 class UserRegisterForm(UserCreationForm):
-  class Meta:
-    model = User
-    fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
+    email = forms.EmailField(
+        required=True,
+        help_text="Enter a valid email address. This will be used for login and account recovery."
+    )
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("A user with this email already exists.")
+        return email
 
 class UserPasswordChangeForm(PasswordChangeForm):
   class Meta:

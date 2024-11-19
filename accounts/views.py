@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
+
 # Create your views here.
 from .forms import *
 
@@ -20,12 +21,12 @@ def register_candidate(request):
       user.username = user.email
       user.save()
       messages.success(request, "Account Created Successfully.. Please Login..")
-      return redirect('accounts:login')
+      return redirect('accounts:login_user')
     else:
       messages.warning(request,"Something went wrong.. Please try again later..")
-      return redirect('accounts:register_candidtae')
+      return redirect('accounts:register_candidate')
   else:
-    form = UserRegisterForm
+    form = UserRegisterForm()
     context = {'form': form}
   return render(request, 'accounts/register_candidate.html', context)
 
@@ -35,46 +36,56 @@ def register_candidate(request):
 
 def register_recruiter(request):
   if request.method == 'POST':
-    form = UserCreationForm(request.POST)
+    form = UserRegisterForm(request.POST)
     if form.is_valid():
       recruiter = form.save(commit=False)
       recruiter.is_recruiter= True
       recruiter.username = recruiter.email
       recruiter.save()
       messages.success(request, 'Account Created Successfully.. Please Login')
-      return redirect('accounts:login')
+      return redirect('accounts:login_user')
     else:
       messages.warning(request, "Something went worng, Please try again ")
       return redirect('accounts:register_recruiter')
   else:
-    form = UserRegisterForm
+    form = UserRegisterForm()
     context = {'form': form}
-  return render('request', 'accounts/register_recruiter.html', context)
+  return render(request, 'accounts/register_recruiter.html', context)
 
 ############################################################# LOGIN USER ################################################################
 ############################################################# LOGIN USER ################################################################
 ############################################################# LOGIN USER ################################################################
+
+
 
 def login_user(request):
-  next = ''
-  if request.GET:
-    next = request.GET['next']
-  
-  if request.method == 'POST':
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(request, username = username, password = password)
+    next_url = request.GET.get('next', '')  # Get the 'next' parameter if it exists
 
-    if user is not None and user.is_active:
-      login(request, user)
-      if next == '':
-        return redirect('dashboard')
-      else:
-        return redirect(next)
-    else:
-      messages.warning(request, 'Something Went Wrong. Please try again later')
-      return redirect('accounts:login')
-  return render(request, 'accounts/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None and user.is_active:
+            login(request, user)
+
+            # Redirect to the next URL or the appropriate dashboard
+            if next_url:
+                return redirect(next_url)
+            if hasattr(user, 'is_recruiter') and user.is_recruiter:
+                return redirect('dashboard:dashboard_recruiter')
+            elif hasattr(user, 'is_candidate') and user.is_candidate:
+                return redirect('dashboard:dashboard_candidate')
+            else:
+                messages.error(request, "Your account type is not recognized.")
+                return redirect('accounts:login_user')
+
+        else:
+            messages.warning(request, "Invalid username or password.")
+            return redirect('accounts:login_user')
+
+    return render(request, 'accounts/login.html')
+
 
 ############################################################# LOGOUT USER ###############################################################
 ############################################################# LOGOUT USER ###############################################################
@@ -83,7 +94,7 @@ def login_user(request):
 def logout_user(request):
   logout(request)
   messages.success(request, "You are now logged out")
-  return redirect('accounts:login')
+  return redirect('accounts:login_user')
 
 ############################################################# CHANGE PASSOWRD ###########################################################
 ############################################################# CHANGE PASSOWRD ###########################################################

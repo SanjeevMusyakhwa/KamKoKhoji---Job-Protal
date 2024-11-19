@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JobSphere {% block title %}
+
+    {% endblock title %}</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="Themesdesign" />
+
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+
+  <!--Material Icon -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}" />
+
+  <!-- selectize css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}" />
+
+  <!--Slider-->
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}" />
+
+  <!-- Custom  Css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+</head>
+
+<body>
+  <!-- Loader -->
+  <!-- <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div> -->
+  <!-- Loader -->
+  <header id="topnav" class="defaultscroll scroll-active">
+    <div class="container">
+      <!-- Logo container-->
+      <div>
+          <a href="index.html" class="logo">
+              <img src="images/logo-light.png" alt="" class="logo-light" height="18" />
+              <img src="images/logo-dark.png" alt="" class="logo-dark" height="18" />
+          </a>
+      </div> 
+      {% if request.user.is_authorized %}
+        
+      
+      <div class="buy-button">
+        <a href="{% url 'accounts:logout_user' %}" class="btn btn-info ml-3"><i class="mdi mdi-login"></i> Logout </a>
+    </div>
+    {% else %}
+      <div class="buy-button">
+        <a href="{% url 'accounts:login_user' %}" class="btn btn-info ml-3"><i class="mdi mdi-login"></i> Login </a>
+    </div> 
+    {% endif %}                 
+      <div class="buy-button">
+          <a href="{% url 'accounts:register_candidate' %}" class="btn btn-primary ml-3"><i class="mdi mdi-account-multiple"></i> Candidate</a>
+      </div><!--end login button-->
+      <div class="buy-button">
+          <a href="{% url 'accounts:register_recruiter' %}" class="btn btn-success ml-3"><i class="mdi mdi-account"></i> Recruiter </a>
+      </div>
+      <!--end login button-->
+      
+      <!-- End Logo container-->
+      <div class="menu-extras">
+          <div class="menu-item">
+              <!-- Mobile menu toggle-->
+              <a class="navbar-toggle">
+                  <div class="lines">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                  </div>
+              </a>
+              <!-- End mobile menu toggle-->
+          </div>
+      </div>
+
+      <div id="navigation">
+          <!-- Navigation Menu-->   
+          <ul class="navigation-menu">
+              <li><a href="{% url 'website:home' %}">Home</a></li>
+              <li>
+                  <a href="{% url 'website:contact' %}">Contact</a>
+              </li>
+              <li><a href="services.html">Services</a></li>
+              <li>
+                  <a href="{% url 'website:about' %}">About Us</a>
+              </li>
+          </ul><!--end navigation menu-->
+      </div><!--end navigation-->
+  </div>
+  </header>
+  
+
+  
+  <!-- Hero Start -->
+  <section class="vh-100"
+    style="background: url('https://via.placeholder.com/2000X1333//88929f/5a6270C/O https://placeholder.com/') center center;">
+
+    <div class="home-center">
+      <div class="home-desc-center">
+        <div class="container">
+          {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            {% endfor %}
+            
+          {% endif %}
+          <div class="row justify-content-center">
+            {% block content %}
+
+            {% endblock content %} <!--end col-->
+          </div><!--end row-->
+        </div> <!--end container-->
+      </div>
+    </div>
+  </section><!--end section-->
+  <!-- Hero End -->
+
+  <!-- javascript -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'js/plugins.js' %}"></script>
+
+  <!-- selectize js -->
+  <script src="{% static 'js/selectize.min.js' %}"></script>
+
+  <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

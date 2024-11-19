@@ -1,0 +1,76 @@
+{% extends "accounts/base.html" %}
+{% load widget_tweaks %}
+{% block title %}
+  Register as Recruiter
+{% endblock title %}
+{% block content %}
+  <!-- Hero Start -->
+  <div class="col-md-6">
+    
+    <div class="login_page bg-white shadow rounded p-4 mt-5">
+        <div class="text-center">
+          <h4 class="mb-4"><i>Signup As Recruiter</i></h4>  
+        </div>
+        <form class="login-form" method="post" action="{% url 'accounts:register_recruiter' %}" >
+          {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group position-relative">                                               
+                        <label>First name <span class="text-danger">*</span></label>
+                        {% render_field form.first_name %}
+                        <!-- {{ form.first_name|add_class:"form-control" }} -->
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group position-relative">                                                
+                        <label>Last name <span class="text-danger">*</span></label>
+                        {% render_field form.last_name %}
+
+                        <!-- {{ form.last_name|add_class:"form-control" }} -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group position-relative">
+                        <label>Your Email <span class="text-danger">*</span></label>
+                        {% render_field form.email %}
+
+                        <!-- {{ form.email|add_class:"form-control" }} -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group position-relative">
+                        <label>Your username <span class="text-danger">*</span></label>
+                        {% render_field form.username %}
+
+                        <!-- {{ form.username|add_class:"form-control" }} -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group position-relative">
+                        <label>Password <span class="text-danger">*</span></label>
+                        {% render_field form.password1 %}
+
+                        <!-- {{ form.password1|add_class:"form-control"}} -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group position-relative">
+                        <label>Confirm Password <span class="text-danger">*</span></label>
+                        {% render_field form.password2 %}
+
+                        <!-- {{ form.password2|add_class:"form-control" }} -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary w-100" type="submit">Register</button>
+                </div>
+              
+                <div class="mx-auto">
+                    <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small> <a href="{% url 'accounts:login_user' %}" class="text-dark font-weight-bold">Sign in</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> <!--end col-->
+{% endblock content %}
