@@ -13,6 +13,9 @@ PROVINCE_CHOICES = (
     ('province 6', 'Province 6'),
     ('province 7', 'Province 7'),
 )
+COUNTRY_CHOICES = (
+    ('Nepal','Nepal'),
+)
 
 PRIMARY_INDUSTRY = (
     ('Software', 'Software'),
@@ -32,11 +35,11 @@ class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     province = models.CharField(max_length=20, choices=PROVINCE_CHOICES)
-    country = models.CharField(max_length=20, default='Nepal')
+    country = models.CharField(max_length=20, choices=COUNTRY_CHOICES)
     primary_industry = models.CharField(max_length=100, choices=PRIMARY_INDUSTRY)
     phone_number = models.CharField(max_length=13)
-    email = models.EmailField(max_length=20)
-    company_size = models.CharField(max_length=20)
+    email = models.EmailField(max_length=50)
+    company_size = models.CharField(max_length=20,choices=COMPANY_SIZES)
     founded_in = models.PositiveIntegerField()
     linkedin = models.URLField()
     website = models.URLField()

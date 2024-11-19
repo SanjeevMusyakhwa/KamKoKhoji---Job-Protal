@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}
+  Add Company
+{% endblock title %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="custom-form rounded border p-4 shadow-sm bg-white">
+        <!-- Form Title -->
+        <div class="text-center mb-4">
+          <h2 class="text-dark"><strong>Company Profile</strong></h2>
+        </div>
+
+        <!-- Form -->
+        <form method="post" action="{% url 'company:add_company' %}" enctype="multipart/form-data" id="company-form">
+          {% csrf_token %}
+          
+          <!-- Company Details Section -->
+          <div class="row">
+            <!-- Company Name -->
+            <div class="col-md-6 mb-3">
+              <label for="name" class="form-label text-muted">Company Name</label>
+              {{ form.name|add_class:"form-control" }} 
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label text-muted">Email Address</label>
+              {{ form.email|add_class:"form-control" }} 
+            </div>
+
+            <!-- Phone Number -->
+            <div class="col-md-6 mb-3">
+              <label for="phone" class="form-label text-muted">Phone Number</label>
+              {{ form.phone_number|add_class:"form-control" }} 
+            </div>
+
+            <!-- Website -->
+            <div class="col-md-6 mb-3">
+              <label for="website" class="form-label text-muted">Website</label>
+              {{ form.website|add_class:"form-control" }} 
+            </div>
+
+            <!-- Established Since -->
+            <div class="col-md-6 mb-3">
+              <label for="founded_in" class="form-label text-muted">Established Since</label>
+              {{ form.founded_in|add_class:"form-control" }} 
+            </div>
+
+            <!-- Company Size -->
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">Company Size</label>
+              {{ form.company_size|add_class:"form-control" }} 
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">Primary Industry</label>
+              {{ form.primary_industry|add_class:"form-control" }} 
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">Province</label>
+              {{ form.province|add_class:"form-control" }} 
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">Country</label>
+              {{ form.country|add_class:"form-control" }} 
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">LinkedIn</label>
+              {{ form.linkedin|add_class:"form-control" }} 
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">Instagram</label>
+              {{ form.instagram|add_class:"form-control" }} 
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="company_size" class="form-label text-muted">Facebook</label>
+              {{ form.facebook|add_class:"form-control" }} 
+            </div>
+
+            <!-- Message -->
+            <div class="col-12 mb-3">
+              <label for="about" class="form-label text-muted">About Company</label>
+              {{ form.about_company|add_class:"form-control" }} 
+          </div>
+
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4 py-2">Create Company</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

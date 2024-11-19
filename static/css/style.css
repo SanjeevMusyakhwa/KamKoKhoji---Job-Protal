@@ -1023,10 +1023,11 @@ p {
   left: 250px;
   top: 0;
   z-index: 99;
-  background-color: #a098c4;
-  border: 0;
+  background-color: #fff;
+  border: 2px transparent;
   -webkit-transition: all .5s ease;
   transition: all .5s ease;
+  padding-left: 500px;
 }
 
 #topnav .logo {

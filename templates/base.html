@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSphere {% block title %}{% endblock title %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Themesdesign">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/selectize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
+    <link rel="stylesheet" href="{% static 'css/side_nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Fix for Overflow -->
+    <style>
+        body {
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .side-nav {
+            width: 300px; /* Ensure fixed width for the sidebar */
+            position: fixed; /* Fix sidebar to the left */
+            top: 0;
+            left: 0;
+            height: 100%; /* Full height */
+            background-color: #f8f9fa; /* Background color for clarity */
+            z-index: 1000; /* Ensure it stays above other elements */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .side-navigation-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .side-navigation-menu li {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .side-navigation-menu a {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .side-navigation-menu a:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+
+        .side-navigation-menu i {
+            margin-right: 10px;
+        }
+
+        .content {
+            margin-left: 260px; /* Space for sidebar */
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="topnav" class="defaultscroll">
+        <div class="container">
+            <!-- Authenticated User Info -->
+            {% if request.user.is_authenticated %}
+            <div class="buy-button">
+                <a href="#" class="text-center text-dark">
+                    <i class="mdi mdi-account mr-3"></i>{{ request.user.first_name }} {{ request.user.last_name }}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <div id="side-navigation" class="side-nav">
+        <ul class="side-navigation-menu mt-5 ml-2 p-2">
+            <li><a href=""><i class="mdi mdi-home"></i> Home</a></li>
+            {% if request.user.has_company %}
+            <li><a href=""><i class="mdi mdi-domain"></i>Update Company</a></li>
+            {% else %}
+            <li><a href="{% url 'company:add_company' %}"><i class="mdi mdi-domain"></i>Add Company</a></li>
+
+            {% endif %}
+            <li><a href=""><i class="mdi mdi-briefcase"></i> Job List</a></li>
+            <li><a href=""><i class="mdi mdi-account-group"></i> All Applicants</a></li>
+            <li><a href=""><i class="mdi mdi-check-circle"></i> Shortlisted Resumes</a></li>
+            <li><a href=""><i class="mdi mdi-bell"></i> Resume Alerts</a></li>
+            <li><a href=""><i class="mdi mdi-message"></i> Messages</a></li>
+            <li><a href=""><i class="mdi mdi-email"></i> Contact</a></li>
+            <li><a href=""><i class="mdi mdi-information"></i> About Us</a></li>
+            <li><a href=""><i class="mdi mdi-key-change"></i> Change Password</a></li>
+            <li><a href=""><i class="mdi mdi-account"></i> View Profile</a></li>
+            <li><a href=""><i class="mdi mdi-logout"></i> Logout</a></li>
+            <li><a href=""><i class="mdi mdi-delete"></i> Delete Profile</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content mt-5">
+        
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top">
+        <i class="mdi mdi-chevron-up"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/selectize.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/counter.int.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+
+</html>
