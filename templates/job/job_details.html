@@ -32,9 +32,10 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <h5 class="text-dark mt-4">Qualifications :</h5>
+        <div class="row align-items-center mt-4">
+          <div class="col-lg-12 d-flex justify-content-between">
+            <h5 class="text-dark">Key Responsibilities :</h5>
+            <a href="{% url 'job:add_jobresponsibility' job.pk %}" class="btn btn-success">Add Responsibilities</a>
           </div>
         </div>
 
@@ -42,20 +43,33 @@
           <div class="col-lg-12">
             <div class="job-detail border rounded mt-2 p-4">
               <div class="job-detail-desc">
-                <div class="job-details-desc-item">
-                  <div class="float-left mr-3">
-                    <i class="mdi mdi-send text-primary"></i>
+                {% for responsibility in job.jobresponsibility_set.all %}
+                  <div class="job-details-desc-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                      <div class="float-left mr-3">
+                        <i class="mdi mdi-send text-primary"></i>
+                      </div>
+                      <p class="text-muted mb-0">{{ responsibility.name }}</p>
+                    </div>
+                    <div class="actions">
+                      <a href="{% url 'job:delete_jobresponsibility' responsibility.pk %}" class="text-danger">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+                    </div>
                   </div>
-                  <p class="text-muted mb-2">Morbi mattis ullamcorper velit. Phasellus gravida semper nisi nullam vel sem.</p>
-                </div>
+                {% empty %}
+                  <p class="text-muted">No responsibilities added yet.</p>
+                {% endfor %}
               </div>
             </div>
           </div>
         </div>
+        
 
-        <div class="row">
-          <div class="col-lg-12">
-            <h5 class="text-dark mt-4">Primary Responsibilities :</h5>
+        <div class="row align-items-center mt-4">
+          <div class="col-lg-12 d-flex justify-content-between">
+            <h5 class="text-dark">Experiences :</h5>
+            <a href="{% url 'job:add_jobexperience' job.pk %}" class="btn btn-success">Add Experiences</a>
           </div>
         </div>
 
@@ -63,16 +77,28 @@
           <div class="col-lg-12">
             <div class="job-detail border rounded mt-2 p-4">
               <div class="job-detail-desc">
-                <div class="job-details-desc-item">
-                  <div class="float-left mr-3">
-                    <i class="mdi mdi-send text-primary"></i>
+                {% for experience in job.jobexperience_set.all %}
+                  <div class="job-details-desc-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                      <div class="float-left mr-3">
+                        <i class="mdi mdi-send text-primary"></i>
+                      </div>
+                      <p class="text-muted mb-0">{{ experience.name }}</p>
+                    </div>
+                    <div class="actions">
+                      <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger" title="Delete Experience">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+                    </div>
                   </div>
-                  <p class="text-muted mb-2">HTML, CSS & Scss</p>
-                </div>
+                {% empty %}
+                  <p class="text-muted">No job experiences added yet.</p>
+                {% endfor %}
               </div>
             </div>
           </div>
         </div>
+        
 
         <div class="container-fluid">
           <div class="row">
@@ -81,34 +107,34 @@
             </div>
 
             <div class="col-lg-12 col-md-7">
-              {% if job.company.job_set.all.count > 0 %}
-                {% for related_job in job.company.job_set.all %}
-                  {% if not related_job.pk == job.pk %}
-                    <div class="shadow rounded p-4 mt-4">
-                      <img src="https://via.placeholder.com/400X400//88929f/5a6270C/O https://placeholder.com/" alt="" height="90" class="float-left shadow rounded-pill mr-3">
-                      <div class="d-block overflow-hidden">
-                        <h6 class="text-muted font-weight-light float-right mb-0"><i class="mdi mdi-clock-outline mr-1"></i>{{ related_job.post_date_time|timesince }}</h6>
-                        <h5 class="mb-1"><a href="{% url 'job:job_details' related_job.pk %}" class="text-dark">{{ related_job.title }}</a></h5>
-                        <small class="text-muted font-weight-bold">
-                          <i class="mdi mdi-bank text-muted"></i>{{ related_job.company.primary_industry }}
-                        </small>
-                        <small class="text-muted font-weight-bold ml-2">
-                          <i class="mdi mdi-timer-sand text-muted"></i>
-                          {{ related_job.job_type }}
-                        </small>
-                        <small class="text-muted font-weight-bold ml-2"><i class="mdi mdi-map-marker mr-2"></i>{{ related_job.company.address }}</small>
-                        <small class="text-muted font-weight-bold ml-2"><i class="mdi mdi-currency-inr text-muted"></i>{{ related_job.salary }}</small>
+              {% with job.company.job_set.all as jobs %}
+                {% if jobs.count > 1 %}
+                  {% for related_job in jobs %}
+                    {% if related_job.pk != job.pk %}
+                      <div class="shadow rounded p-4 mt-4">
+                        <img src="https://via.placeholder.com/400X400//88929f/5a6270C/O https://placeholder.com/" alt="" height="90" class="float-left shadow rounded-pill mr-3">
+                        <div class="d-block overflow-hidden">
+                          <h6 class="text-muted font-weight-light float-right mb-0"><i class="mdi mdi-clock-outline mr-1"></i>{{ related_job.post_date_time|timesince }}</h6>
+                          <h5 class="mb-1"><a href="{% url 'job:job_details' related_job.pk %}" class="text-dark">{{ related_job.title }}</a></h5>
+                          <small class="text-muted font-weight-bold">
+                            <i class="mdi mdi-bank text-muted"></i>{{ related_job.company.primary_industry }}
+                          </small>
+                          <small class="text-muted font-weight-bold ml-2">
+                            <i class="mdi mdi-timer-sand text-muted"></i>{{ related_job.job_type }}
+                          </small>
+                          <small class="text-muted font-weight-bold ml-2"><i class="mdi mdi-map-marker mr-2"></i>{{ related_job.company.address }}</small>
+                          <small class="text-muted font-weight-bold ml-2"><i class="mdi mdi-currency-inr text-muted"></i>{{ related_job.salary }}</small>
+                        </div>
                       </div>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              {% else %}
-                <p class="text-muted">No jobs available at this time.</p>
-              {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <p class="text-muted">No other jobs available at this time.</p>
+                {% endif %}
+              {% endwith %}
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">

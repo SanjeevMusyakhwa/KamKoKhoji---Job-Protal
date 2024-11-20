@@ -72,13 +72,13 @@ def add_jobresponsibility(request, pk):
       jobres.job = job
       jobres.save()
       messages.success(request, "Job Responsibility added successfully")
-      return redirect(reverse('job:add_jobresponsibility', args= [job.pk]))
+      return redirect(reverse('job:job_details', args= [job.pk]))
     else:
       messages.warning(request,"Something went wrong")
       return redirect(reverse('job:add_jobresponsibility', args= [job.pk]))
   else:
     form = AddJobResponsibilityForm()
-    context = {'form': form}
+    context = {'form': form, 'job':job}
   return render(request, 'job/add_jobresponsibility.html', context)
 
 def add_jobexperience(request, pk):
@@ -90,13 +90,13 @@ def add_jobexperience(request, pk):
       jobexp.job = job
       jobexp.save()
       messages.success(request,"Job Experience added")
-      return redirect(reverse('job:add_jobexperience', args = [job.pk]))
+      return redirect(reverse('job:job_details', args = [job.pk]))
     else:
       messages.warning(request, 'something went worng')
       return redirect(reverse('job:add_jobexperience', args = [job.pk]))
   else:
     form = AddJobExperienceForm()
-    context = {'form': form}
+    context = {'form': form, 'job':job}
   return render(request, 'job/add_jobexperience.html', context)
 
 def delete_jobresponsibility(request, pk):
@@ -108,7 +108,7 @@ def delete_jobresponsibility(request, pk):
 
 
 def delete_jobexperience(request, pk):
-  jobexp = JobExperiecnce.objects.get(id = pk)
+  jobexp = JobExperience.objects.get(id = pk)
   get_job = jobexp.job 
   jobexp.delete()
   messages.success(request,'Job Experience deleted successfully')
