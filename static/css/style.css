@@ -62,7 +62,7 @@ File: main stylesheet
 }
 
 .text-success {
-  color: #ffffff !important;
+  color: #25a06e !important;
 }
 
 .text-danger {
@@ -1020,7 +1020,7 @@ p {
 #topnav {
   position: fixed;
   right: 0;
-  left: 250px;
+  left: 0;
   top: 0;
   z-index: 99;
   background-color: #fff;
@@ -1151,7 +1151,7 @@ p {
 
 #topnav .navigation-menu > li > a {
   display: block;
-  color: white;
+  color: #000;
   font-size: 13px;
   background-color: transparent !important;
   font-weight: 700;
@@ -1166,7 +1166,7 @@ p {
 }
 
 #topnav .navigation-menu .has-submenu .menu-arrow {
-  border: solid rgba(255, 255, 255, 0.8);
+  border: solid rgba(175, 92, 92, 0.8);
   border-radius: 0.5px;
   border-width: 0 2px 2px 0;
   display: inline-block;
@@ -1343,7 +1343,7 @@ p {
     border-color: #ffffff;
   }
   #topnav .navigation-menu > li:hover > a, #topnav .navigation-menu > li.active > a {
-    color: #ffffff;
+    color: black;
   }
   #topnav .navigation-menu > li .submenu {
     position: absolute;
