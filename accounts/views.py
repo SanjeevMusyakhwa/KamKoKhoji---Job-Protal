@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -119,17 +119,17 @@ def change_password(request):
 ############################################################# UPDATE PASSWORD ###########################################################
 
 def update_profile(request, pk):
-  user = User.objects.get(id = pk)
-  if request.method == 'POST':
-    form =  UpdateProfileForm(request.user, instance = user)
-    if form.is_valid():
-      form.save()
-      messages.success('request', 'Your Profile has been updated.....')
-      return redirect(reverse('update_profile', args= [user.pk]))
+    user = get_object_or_404(User, id=pk)  # Safer way to get the user instance
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, request.FILES, instance=user)  # Pass POST data and files
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect(reverse('accounts:update_profile', args=[user.pk]))
+        else:
+            messages.warning(request, 'Something went wrong. Please check the form and try again.')
     else:
-      messages.warning(request, 'Something went Wrong')
-      return redirect(reverse('update_profile', args= [user.pk]))
-  else:
-    form = UpdateProfileForm()
+        form = UpdateProfileForm(instance=user)  # Prepopulate form with user's existing data
+
     context = {'form': form}
-  return render(request, 'accounts/update_profile.html',context)
+    return render(request, 'accounts/update_profile.html', context)
