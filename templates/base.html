@@ -93,9 +93,14 @@
     <!-- Sidebar Navigation -->
     <div id="side-navigation" class="side-nav">
         <ul class="side-navigation-menu mt-5 ml-2 p-2">
-            <li><a href=""><i class="mdi mdi-home"></i> Home</a></li>
+            {% if request.user.is_recruiter %}
+              
+            <li><a href="{% url 'dashboard:dashboard_recruiter' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
+            {% else %}
+            <li><a href="{% url 'dashboard:dashboard_candidate' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
+            {% endif %}
             {% if request.user.has_company %}
-            <li><a href=""><i class="mdi mdi-domain"></i>Update Company</a></li>
+            <li><a href="{% url 'company:company_detail' request.user.company.pk %}"><i class="mdi mdi-domain"></i>Company Details</a></li>
             {% else %}
             <li><a href="{% url 'company:add_company' %}"><i class="mdi mdi-domain"></i>Add Company</a></li>
 

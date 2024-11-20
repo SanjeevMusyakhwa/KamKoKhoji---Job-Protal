@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -34,15 +35,19 @@ COMPANY_SIZES = (
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    province = models.CharField(max_length=20, choices=PROVINCE_CHOICES)
-    country = models.CharField(max_length=20, choices=COUNTRY_CHOICES)
-    primary_industry = models.CharField(max_length=100, choices=PRIMARY_INDUSTRY)
-    phone_number = models.CharField(max_length=13)
+    address = models.CharField(max_length=50, null= True)
     email = models.EmailField(max_length=50)
-    company_size = models.CharField(max_length=20,choices=COMPANY_SIZES)
-    founded_in = models.PositiveIntegerField()
-    linkedin = models.URLField()
+    phone_number = models.CharField(max_length=13)
     website = models.URLField()
+    founded_in = models.PositiveIntegerField()
+    primary_industry = models.CharField(max_length=100, choices=PRIMARY_INDUSTRY)
+    province = models.CharField(max_length=20, choices=PROVINCE_CHOICES)
+    company_size = models.CharField(max_length=20,choices=COMPANY_SIZES)
+    country = models.CharField(max_length=20, choices=COUNTRY_CHOICES)
+    linkedin = models.URLField()
     instagram = models.URLField()
     facebook = models.URLField()
     about_company = models.TextField()
+
+    def __str__(self):
+        return f"{self.name}, {self.email}, {self.phone_number}"

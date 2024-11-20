@@ -9,12 +9,12 @@
     <div class="col-lg-8 col-md-10">
       <div class="custom-form rounded border p-4 shadow-sm bg-white">
         <!-- Form Title -->
-        <div class="text-center mb-4">
-          <h2 class="text-dark"><strong>Company Profile</strong></h2>
+        <div class=" mb-4">
+          <h2 class="" style="font-family: cursive;"><strong>Update Company Information</strong></h2>
         </div>
 
         <!-- Form -->
-        <form method="post" action="{% url 'company:add_company' %}" enctype="multipart/form-data" id="company-form">
+        <form method="post" action="{% url 'company:update_company' request.user.company.pk %}" enctype="multipart/form-data" id="company-form">
           {% csrf_token %}
           
           <!-- Company Details Section -->
@@ -31,17 +31,15 @@
               {{ form.email|add_class:"form-control" }} 
             </div>
 
-            <div class="col-md-6 mb-3">
-              <label for="email" class="form-label text-muted">Address</label>
-              {{ form.address|add_class:"form-control" }} 
-            </div>
-
             <!-- Phone Number -->
             <div class="col-md-6 mb-3">
               <label for="phone" class="form-label text-muted">Phone Number</label>
               {{ form.phone_number|add_class:"form-control" }} 
             </div>
-
+            <div class="col-md-6 mb-3">
+              <label for="name" class="form-label text-muted">Address</label>
+              {{ form.address|add_class:"form-control" }} 
+            </div>
             <!-- Website -->
             <div class="col-md-6 mb-3">
               <label for="website" class="form-label text-muted">Website</label>
@@ -92,7 +90,7 @@
 
           <!-- Submit Button -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary px-4 py-2">Create Company</button>
+            <button type="submit" class="btn btn-primary px-4 py-2">Update Company</button>
           </div>
         </form>
       </div>

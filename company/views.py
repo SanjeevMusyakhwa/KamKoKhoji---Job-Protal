@@ -33,20 +33,28 @@ def add_company(request):
         return render(request, 'company/add_company.html', context)
 
 def update_company(request, pk): 
-  company = Company.objects.get(id = pk)
-  if request.method == 'POST':
-    form = UpdateComapnyForm(request.POST, instance=company)
-    if form.is_valid():
-      form.save()
-      messages.success(request, "Your company has been updated and saved..")
-      return redirect(reverse('company:company_detail'))
+    company = Company.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        form = UpdateCompanyForm(request.POST, instance=company)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your company has been updated and saved.")
+            print('updated successfully')
+            return redirect(reverse('company:company_detail', args=[company.pk]))  # Pass pk to the URL
+        else:
+            messages.warning(request, 'Something went wrong... Please try again later.')
+            print('hello world')
+            # Instead of redirecting, re-render the form with errors
+            context = {'form': form}
+            return render(request, 'company/update_company.html', context)
     else:
-      messages.warning(request, 'Something went wrong..., Please Try again later')
-      return redirect(reverse('company:company_detail'))
-  else:
-    form = UpdateComapnyForm()
+        form = UpdateCompanyForm(instance=company)  # Initialize form with company instance
+    
     context = {'form': form}
-  return render(request,'company/update_company.html', context)
+    return render(request, 'company/update_company.html', context)
+
+
 
 
 def company_detail(request, pk):

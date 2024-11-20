@@ -13,7 +13,7 @@ class AddCompanyForm(forms.ModelForm):
         exclude = ['user']
 
 
-class UpdateComapnyForm(forms.ModelForm):
+class UpdateCompanyForm(forms.ModelForm):
   founded_in = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
 
   class Meta:
