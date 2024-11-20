@@ -59,7 +59,8 @@ def joblist_percompany(request):
 
 def job_details(request, pk):
   job = Job.objects.get(id = pk)
-  context = {'job': job}
+  company = Company.objects.get(pk=job.company.pk)
+  context = {'job': job, 'company':company}
   return render(request, 'job/job_details.html', context)
 
 def add_jobresponsibility(request, pk):

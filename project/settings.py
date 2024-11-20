@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 # Custom App
     'accounts',
     'company',
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
 
 
 # Third party app
-    'widget_tweaks'
+    'widget_tweaks',
     
 ]
 MIDDLEWARE = [
