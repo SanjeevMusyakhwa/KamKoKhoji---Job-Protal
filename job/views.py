@@ -14,13 +14,15 @@ def createjob(request):
     form = CreateJobForm(request.POST)
     if form.is_valid():
       job = form.save(commit=False)
-      company = Company.objects.get(pk = request.user.comapny.pk)
+      company = Company.objects.get(pk = request.user.company.pk)
       job.company = company
       job.save()
       messages.success(request,"Job has Been Created.")
-      return redirect('job:create_job')
+      print('Job Created')
+      return redirect('job:joblist_percompany')
     else:
       messages.warning(request,'Something went wrong, Please try again later')
+      print('Job Not  Created')
       return redirect('job:create_job')
   else:
     form = CreateJobForm()
@@ -47,11 +49,11 @@ def delete_job(request,pk):
   job = Job.objects.get(id = pk)
   job.delete()
   messages.success(request, "Job Deleted Successfully")
-  return redirect('job:joblist_percomapny')
+  return redirect('job:joblist_percompany')
 
 def joblist_percompany(request):
   company = Company.objects.get(pk = request.user.company.pk)
-  jobs = company.job.set.all()
+  jobs = company.job_set.all().order_by('-id')
   context = {'jobs': jobs}
   return render(request, 'job/joblist_percompany.html', context)
 

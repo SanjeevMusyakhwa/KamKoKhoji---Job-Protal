@@ -67,7 +67,12 @@
                 <a href="{% url 'accounts:logout_user' %}" class="btn btn-primary ml-3"><i class="mdi mdi-logout"></i> Logout</a>
             </div>
             <div class="buy-button">
-                <a href="post-a-job.html" class="btn btn-success ml-3"><i class="mdi mdi-folder"></i> Dashboard</a>
+            {% if request.user.is_recruiter %}
+            <a href="{% url 'dashboard:dashboard_recruiter' %}" class="btn btn-success ml-3"><i class="mdi mdi-folder"></i> Dashboard</a>
+            {% else %}
+            <a href="{% url 'dashboard:dashboard_candidate' %}" class="btn btn-success ml-3"><i class="mdi mdi-folder"></i> Dashboard</a>
+            {% endif %}
+            
             </div><!--end login button-->
             
             {% else %}

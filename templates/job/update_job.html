@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}
+  Create Job
+{% endblock title %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="custom-form rounded border p-4 shadow-sm bg-white">
+        <!-- Form Title -->
+        <div class="text-center mb-4">
+          <h2 class="text-dark"><strong>Update Job </strong></h2>
+        </div>
+
+        <!-- Form -->
+        <form method="post" action="" enctype="multipart/form-data" id="company-form">
+          {% csrf_token %}
+          
+          <!-- Company Details Section -->
+          <div class="row">
+            <!-- Company Name -->
+
+            <!-- Job Title -->
+            <div class="col-md-6 mb-3">
+              <label for="title" class="form-label text-muted">Job Title</label>
+              {{ form.title|add_class:"form-control" }} 
+            </div>
+
+            <!-- Salary -->
+            <div class="col-md-6 mb-3">
+              <label for="salary" class="form-label text-muted">Salary (<small> in Rs</small>)</label>
+              {{ form.salary|add_class:"form-control" }} 
+            </div>
+
+            <!-- Pay Mode -->
+            <div class="col-md-6 mb-3">
+              <label for="pay_mode" class="form-label text-muted">Pay Mode</label>
+              {{ form.pay_mode|add_class:"form-control" }} 
+            </div>
+
+            <!-- Job Type -->
+            <div class="col-md-6 mb-3">
+              <label for="job_type" class="form-label text-muted">Job Type</label>
+              {{ form.job_type|add_class:"form-control" }} 
+            </div>
+
+            <!-- Job Location -->
+            <div class="col-md-6 mb-3">
+              <label for="job_location" class="form-label text-muted">Job Location</label>
+              {{ form.job_location|add_class:"form-control" }} 
+            </div>
+
+            <!-- Job Category -->
+            <div class="col-md-6 mb-3">
+              <label for="job_category" class="form-label text-muted">Category</label>
+              {{ form.job_category|add_class:"form-control" }} 
+            </div>
+
+            <!-- Job Description -->
+            <div class="col-md-12 mb-3">
+              <label for="job_description" class="form-label text-muted">Job Description</label>
+              {{ form.job_description|add_class:"form-control" }} 
+            </div>
+          </div>
+          
+          <div class="col-md-12 mb-3">
+            <label for="job_description" class="form-label text-muted">status</label>
+            {{ form.status|add_class:"form-control" }} 
+          </div>
+        </div>
+          <!-- Submit Button -->
+          <div class="mb-2 p-2">
+            <button type="submit" class="btn btn-primary mb-2">Create Job</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

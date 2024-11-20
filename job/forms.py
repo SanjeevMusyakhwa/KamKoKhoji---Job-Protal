@@ -4,12 +4,12 @@ from job.models import *
 class CreateJobForm(forms.ModelForm):
     class Meta: 
         model = Job
-        exclude = ['post_date_time']  # Use only exclude or fields, not both
+        exclude = ['company','post_date_time','date_posted', 'is_published','expiry_date', 'status']  # Use only exclude or fields, not both
 
 class UpdateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ['post_date_time']  # Use only exclude or fields, not both
+        exclude = ['company','post_date_time','date_posted', 'is_published','expiry_date','status']  # Use only exclude or fields, not both
 
 class AddJobResponsibilityForm(forms.ModelForm):
     class Meta:

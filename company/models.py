@@ -50,4 +50,4 @@ class Company(models.Model):
     about_company = models.TextField()
 
     def __str__(self):
-        return f"{self.name}, {self.email}, {self.phone_number}"
+        return f"{self.name}"
