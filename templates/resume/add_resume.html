@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+Add Resume
+{% endblock title %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 class="text-dark">Add Resume Information:</h5>
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="custom-form p-4 border rounded">
+                    <img src="{% static 'images/how-it-work/img-1.png' %}"
+                         class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+
+                    <form method="post" action="{% url 'resume:add_resume' %}">
+                        {% csrf_token %}
+                        <div class="row mt-4">
+                            <!-- User Info -->
+                            <div class="col-md-6">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">First Name<span class="text-danger">*</span> :</label>
+                                    <input id="first_name" type="text" class="form-control resume"
+                                           placeholder="First Name" name="first_name"
+                                           value="{{ request.user.first_name }}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Last Name<span class="text-danger">*</span> :</label>
+                                    <input id="last-name" type="text" class="form-control resume"
+                                           placeholder="Last Name" name="last_name"
+                                           value="{{ request.user.last_name }}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- DOB and Gender -->
+                            <div class="col-md-3">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Date Of Birth<span class="text-danger">*</span> :</label>
+                                    {{ form.dob|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Sex<span class="text-danger">*</span> :</label>
+                                    {{ form.gender|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Marital Status</label>
+                                    {{ form.marital_status|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Language</label>
+                                    {{ form.language|add_class:"form-control" }}
+                                </div>
+                            </div>
+
+                            <!-- About Me -->
+                            <div class="col-md-12">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">About Me</label>
+                                    {{ form.about_candidate|add_class:"form-control" }}
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Province</label>
+                                    {{ form.province|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Country</label>
+                                    {{ form.country|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Phone</label>
+                                    {{ form.phone_number|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">E-mail</label>
+                                    <input id="e-mail" type="email" name="email" class="form-control resume"
+                                           placeholder="Email ID" value="{{ request.user.email }}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Social Media -->
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Instagram</label>
+                                    {{ form.instagram|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Twitter</label>
+                                    {{ form.twitter|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Facebook</label>
+                                    {{ form.facebook|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">GitHub</label>
+                                    {{ form.github|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">LinkedIn</label>
+                                    {{ form.linkedin|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Address :</label>
+                                    {{ form.address|add_class:"form-control" }}
+                                </div>
+                            </div>
+
+                            <!-- Education & Experience -->
+                            <div class="col-md-6">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Education</label>
+                                    {{ form.education|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group app-label">
+                                    <label class="text-muted">Experience</label>
+                                    {{ form.experience|add_class:"form-control" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary mt-3">Add Resume</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

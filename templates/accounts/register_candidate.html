@@ -17,7 +17,7 @@
                 <div class="col-md-6">
                     <div class="form-group position-relative">                                               
                         <label>First name <span class="text-danger">*</span></label>
-                        {% render_field form.first_name %}
+                        {{ form.first_name|add_class:"form-control"}}
                     
 
                     </div>
@@ -25,36 +25,34 @@
                 <div class="col-md-6">
                     <div class="form-group position-relative">                                                
                         <label>Last name <span class="text-danger">*</span></label>
-                        {% render_field form.last_name %}
+                        {{ form.last_name|add_class:"form-control"}}
                         <!-- {{ form.last_name|add_class:"form-control" }} -->
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group position-relative">
                         <label>Your Email <span class="text-danger">*</span></label>
-                        {% render_field form.email %}
+                        {{ form.email|add_class:"form-control"}}
                         <!-- {{ form.email|add_class:"form-control" }} -->
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group position-relative">
                         <label>Your username <span class="text-danger">*</span></label>
-                        {% render_field form.username %}
+                        {{ form.username|add_class:"form-control"}}
                         <!-- {{ form.username|add_class:"form-control" }} -->
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group position-relative">
                         <label>Password <span class="text-danger">*</span></label>
-                        {% render_field form.password1 %}
-                        <!-- {{ form.password1|add_class:"form-control"}} -->
+                        {{ form.password1|add_class:"form-control"}}                        <!-- {{ form.password1|add_class:"form-control"}} -->
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group position-relative">
                         <label>Confirm Password <span class="text-danger">*</span></label>
-                        {% render_field form.password2 %}
-                        <!-- {{ form.password2|add_class:"form-control" }} -->
+                        {{ form.password2|add_class:"form-control"}}                        <!-- {{ form.password2|add_class:"form-control" }} -->
                     </div>
                 </div>
                 <div class="col-md-12">

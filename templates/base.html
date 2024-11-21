@@ -23,21 +23,27 @@
     <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
     <link rel="stylesheet" href="{% static 'css/side_nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
+
     <!-- Fix for Overflow -->
     <style>
         body {
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden;
+            /* Prevent horizontal scrolling */
         }
 
         .side-nav {
-            width: 300px; /* Ensure fixed width for the sidebar */
-            position: fixed; /* Fix sidebar to the left */
+            width: 300px;
+            /* Ensure fixed width for the sidebar */
+            position: fixed;
+            /* Fix sidebar to the left */
             top: 89px;
             left: 0;
-            height: 70%; /* Full height */
-            background-color: #f8f9fa; /* Background color for clarity */
-            z-index: 1000; /* Ensure it stays above other elements */
+            height: 70%;
+            /* Full height */
+            background-color: #f8f9fa;
+            /* Background color for clarity */
+            z-index: 1000;
+            /* Ensure it stays above other elements */
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -70,7 +76,8 @@
         }
 
         .content {
-            margin-left: 260px; /* Space for sidebar */
+            margin-left: 260px;
+            /* Space for sidebar */
             padding: 20px;
         }
     </style>
@@ -93,25 +100,44 @@
     <!-- Sidebar Navigation -->
     <div id="side-navigation" class="side-nav">
         <ul class="side-navigation-menu  ml-2 p-2">
+            {% if request.user.is_recruiter %}
             <li><a href="{% url 'dashboard:dashboard_recruiter' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
             {% if request.user.has_company %}
-            <li><a href="{% url 'company:company_detail' request.user.company.pk %}"><i class="mdi mdi-domain"></i>Company Details</a></li>
+            <li><a href="{% url 'company:company_detail' request.user.company.pk %}"><i
+                        class="mdi mdi-domain"></i>Company Details</a></li>
             <li><a href="{% url 'job:create_job' %}"><i class="mdi mdi-briefcase"></i> Post a Job</a></li>
             <li><a href="{% url 'job:joblist_percompany' %}"><i class="mdi mdi-domain"></i>Manage Jobs</a></li>
             <li><a href=""><i class="mdi mdi-account-group"></i> All Applicants</a></li>
             {% else %}
             <li><a href="{% url 'company:add_company' %}"><i class="mdi mdi-domain"></i>Add Company</a></li>
             {% endif %}
-            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a></li>
-            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update Profile</a></li>
+            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a>
+            </li>
+            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update
+                    Profile</a></li>
             <li><a href="{% url 'accounts:logout_user' %}"><i class="mdi mdi-logout"></i> Logout</a></li>
-            
+            {% elif request.user.is_candidate %}
+            <li><a href="{% url 'dashboard:dashboard_candidate' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
+            {% if request.user.has_resume %}
+            <li><a href=""><i class="mdi mdi-domain"></i>Apply for Jobs</a></li>
+            <li><a href="{% url 'resume:resume_details' request.user.resume.pk %}"><i class="mdi mdi-domain"></i>Resume Details </a></li>
+            <li><a href=""><i class="mdi mdi-briefcase"></i> Applied Jobs</a></li>
+            <li><a href=""><i class="mdi mdi-domain"></i>Manage Applied Jobs</a></li>
+            {% else %}
+            <li><a href="{% url 'resume:add_resume' %}"><i class="mdi mdi-domain"></i>Add Resume</a></li>
+            {% endif %}
+            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a>
+            </li>
+            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update
+                    Profile</a></li>
+            <li><a href="{% url 'accounts:logout_user' %}"><i class="mdi mdi-logout"></i> Logout</a></li>
+            {% endif %}
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="content mt-5">
-        
+
         {% block content %}
         {% endblock content %}
     </div>

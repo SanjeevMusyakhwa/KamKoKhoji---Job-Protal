@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from datetime import date
 User = get_user_model()
 
 PROVINCE_CHOICES = (
@@ -30,6 +30,8 @@ GENDER_CHOICES = (
 
 EDUCATION_CHOICES = (
     ('None', 'None'),
+    ('SEE', 'SEE'),
+    ('SLC', 'SLC'),
     ('Bachelors', 'Bachelors'),
     ('Masters', 'Masters'),
     ('Diploma', 'Diploma'),
@@ -41,29 +43,46 @@ STUDYING_CHOICES = (
     ('No', 'No'),
 )
 
+MARITAL_STATUS = (
+    ('Single','Single'),
+    ('Married','Married'),
+    ('Divorced','Divorced'),
+    ('Widow','Widow'),
+)
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dob = models.DateField()  # Changed to DateField
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    marital_status = models.CharField(max_length=20, choices=MARITAL_STATUS)
+    language = models.CharField(max_length=50)  # Increased max_length for multilingual capabilities
+    about_candidate = models.TextField()
     province = models.CharField(max_length=20, choices=PROVINCE_CHOICES)
     country = models.CharField(max_length=20, default='Nepal')
-    experience = models.CharField(max_length=20, choices=EXPERIENCE_CHOICES)
-    age = models.PositiveIntegerField()
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    language = models.CharField(max_length=20)
-    education = models.CharField(max_length=200, choices=EDUCATION_CHOICES)
+    phone_number = models.CharField(max_length=13)  # Removed max_length from PositiveIntegerField
+    instagram = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True)
     facebook = models.URLField(blank=True, null=True)
     github = models.URLField(blank=True, null=True)
-    instagram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
-    about_candidate = models.TextField()
+    address = models.CharField(max_length=300)
+    experience = models.CharField(max_length=20, choices=EXPERIENCE_CHOICES)
+    education = models.CharField(max_length=200, choices=EDUCATION_CHOICES)
+    
 
+    def __str__(self):
+        return f"Resume of {self.user.username}"
+    
 class Education(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='educations')
     degree = models.CharField(max_length=20, choices=EDUCATION_CHOICES)
-    course = models.CharField(max_length=50)
+    course = models.CharField(max_length=50, default='None')
     start_year = models.PositiveIntegerField()
     end_year = models.PositiveIntegerField()
     studying = models.CharField(max_length=20, choices=STUDYING_CHOICES, default='No')
+    school_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.degree} at {self.school_name}"
 
 class Work(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='work_experiences')

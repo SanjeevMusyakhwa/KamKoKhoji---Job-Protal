@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load static %}
+{% block title %}
+{{ job.title }}
+{% endblock title %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 col-md-7">
+        <div class="job-detail border rounded p-4">
+          <div class="job-detail-content">
+            <img src="{% static 'images/featured-job/img-4.png' %}" alt=""
+              class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
+            <div class="job-detail-com-desc overflow-hidden d-block">
+              <h4 class="mb-2"><a href="" class="text-dark">{{ resume.user.first_name }} {{ resume.user.last_name }}</a></h4>
+              <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i>{{ job.company.name }}</p>
+              <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{ resume.address }}, {{resume.province }}, {{ resume.country }}</p>
+            </div>
+          </div>
+
+          <div class="job-detail-desc mt-4">
+            <h5 class="text-dark mt-4">About Candidate</h5>
+            
+            <p class="text-muted mb-0">{{ resume.about_candidate }}</p>
+          </div>
+        </div>
+
+        <div class="row align-items-center mt-4">
+          <div class="col-lg-12 d-flex justify-content-between">
+            <h5 class="text-dark">Education :</h5>
+            {% if request.user.is_candidate %}
+            <a href="{% url 'resume:add_education' request.user.resume.pk %}" class="btn btn-success">Add Education</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          {% for education in education  %}
+            
+          
+          <div class="col-lg-4 col-md-6 mt-4 pt-5">
+              <div class="border rounded candidates-profile-education text-center text-muted">
+                  <div class="profile-education-icon border rounded-pill bg-white text-primary">
+                      <i class="mdi mdi-36px mdi-school"></i>
+                  </div>
+                  <h6 class="text-uppercase f-17" class="text-muted">{{education.degree}}</h6>
+                  <h6 class="text-uppercase f-17"><a href="#" class="text-muted">{{education.school_name}}</a></h6>
+                  <p class="pb-3 mb-0">{{education.course}}</p>
+                  <p class="f-14 mb-1">{{education.start_year}} - {{ education.end_year}}</p>
+                  
+                  <p class="pt-3 border-top mb-0">
+                    {% if request.user.is_candidate %}
+                    <div class="actions">
+                      <a href="{% url 'resume:update_education' education.pk %}" class="text-primary mr-3">
+                        <i class="mdi mdi-pencil mdi-24px"></i> <!-- Enlarged icon -->
+                      </a>
+                      <a href="{% url 'resume:delete_education' education.pk %}" class="text-danger">
+                        <i class="mdi mdi-delete mdi-24px"></i> <!-- Enlarged icon -->
+                      </a>
+                    </div>
+                    {% endif %}
+                  </p>
+                  
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+
+
+        <div class="row align-items-center mt-4">
+          <div class="col-lg-12 d-flex justify-content-between">
+            <h5 class="text-dark">Experiences :</h5>
+            {% if request.user.is_candidate %}
+            <a href="" class="btn btn-success">Add Experiences</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="job-detail border rounded mt-2 p-4">
+              <div class="job-detail-desc">
+                {% for experience in job.jobexperience_set.all %}
+                <div class="job-details-desc-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <div class="float-left mr-3">
+                      <i class="mdi mdi-send text-primary"></i>
+                    </div>
+                    <p class="text-muted mb-0">{{ experience.name }}
+                    {% if request.user.is_recruiter %}
+                    <div class="actions">
+                      <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger"
+                        title="Delete Experience">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+                    </div>
+                    {% endif %}
+                    </p>
+                  </div>
+
+                </div>
+                {% empty %}
+                <p class="text-muted">No experiences added yet.</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row align-items-center mt-4">
+          <div class="col-lg-12 d-flex justify-content-between">
+            <h5 class="text-dark">Skills :</h5>
+            {% if request.user.is_candidate %}
+            <a href="" class="btn btn-success">Add Skills</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="job-detail border rounded mt-2 p-4">
+              <div class="job-detail-desc">
+                {% for experience in job.jobexperience_set.all %}
+                <div class="job-details-desc-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <div class="float-left mr-3">
+                      <i class="mdi mdi-send text-primary"></i>
+                    </div>
+                    <p class="text-muted mb-0">{{ experience.name }}
+                    {% if request.user.is_recruiter %}
+                    <div class="actions">
+                      <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger"
+                        title="Delete Experience">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+                    </div>
+                    {% endif %}
+                    </p>
+                  </div>
+
+                </div>
+                {% empty %}
+                <p class="text-muted">No Skills added yet.</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
+        <div class="job-detail border rounded p-4">
+          <h5 class="text-muted text-center pb-2"><i class="mdi mdi-map-marker mr-2"></i>Personal Information</h5>
+          <div class="job-detail-location pt-4 border-top">
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-account text-muted"></i> <!-- User icon for name -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.user.first_name }} {{ resume.user.last_name }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-calendar text-muted"></i> <!-- Calendar icon for DOB -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.dob }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-email-outline text-muted"></i> <!-- Email icon -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.user.email }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-gender-male-female text-muted"></i> <!-- Gender icon -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.gender }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-cellphone text-muted"></i> <!-- Phone icon -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.phone_number }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-ring text-muted"></i> <!-- Marriage icon -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.marital_status }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-translate text-muted"></i> <!-- Language icon -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.language }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-school text-muted"></i> <!-- Education icon -->
+              </div>
+              <p class="text-muted mb-2">: {{ resume.education }}</p>
+            </div>
+            <div class="job-details-desc-item">
+              <div class="float-left mr-2">
+                <i class="mdi mdi-briefcase text-muted"></i> <!-- Work/Experience icon -->
+              </div>
+              {% if resume.experience == 'Freshers' %}
+              <p class="text-muted mb-2">: Freshers</p>
+              {% else %}
+                
+              <p class="text-muted mb-2">: {{ resume.experience }} Years Experience</p>
+              {% endif %}
+            </div>
+            <ul class="list-unstyled social-icon social mb-0">
+              {% if resume.facebook %}
+              <li class="list-inline-item"><a href="{{ resume.facebook }}" class="rounded"><i
+                    class="mdi mdi-facebook"></i></a></li>
+              {% endif %}
+              {% if resume.twitter %}
+              <li class="list-inline-item"><a href="{{ resume.twitter }}" class="rounded"><i
+                    class="mdi mdi-twitter"></i></a></li>
+              {% endif %}
+              {% if resume.instagram %}
+              <li class="list-inline-item"><a href="{{ resume.instagram }}" class="rounded"><i
+                    class="mdi mdi-instagram"></i></a></li>
+              {% endif %}
+              {% if resume.github %}
+              <li class="list-inline-item"><a href="{{ resume.github }}" class="rounded"><i
+                    class="mdi mdi-github-circle"></i></a></li>
+              {% endif %}
+              {% if resume.linkedin %}
+              <li class="list-inline-item"><a href="{{ resume.linkedin }}" class="rounded"><i
+                    class="mdi mdi-linkedin"></i></a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="job-detail border rounded mt-4">
+          {% if request.user.is_candidate and request.user.has_resume %}
+          <a href="{% url 'resume:update_resume' resume.pk %}" class="btn btn-primary btn-block">Update Resume</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

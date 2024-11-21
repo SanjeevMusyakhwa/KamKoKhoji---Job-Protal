@@ -8,24 +8,28 @@ from .models import *
 # Create your views here.
 
 def add_resume(request):
-  if request.method == 'POST':
-    form = CreateResumeForm(request.POST)
-    if form.is_valid:
-      resume = form.save(commit = False)
-      resume.user = request.user
-      user = User.objects.get(id = request.user.pk)
-      user.has_resume = True
-      resume.save()
-      user.save()
-      messages.success(request, "You have added your resume")
-      return redirect(reverse('resume:resume_details', args= [resume.pk]))
+    if request.method == 'POST':
+        form = CreateResumeForm(request.POST)
+        if form.is_valid():
+            # If the form is valid, save the resume and link to the user
+            resume = form.save(commit=False)
+            resume.user = request.user
+            user = User.objects.get(id=request.user.pk)
+            user.has_resume = True
+            resume.save()
+            user.save()
+            messages.success(request, "You have added your resume")
+            return redirect(reverse('resume:resume_details', args=[resume.pk]))
+        else:
+            # If the form is not valid, show a warning message and re-render the form
+            messages.warning(request, 'Something went wrong. Please check the form.')
+            return render(request, 'resume/add_resume.html', {'form': form})
     else:
-      messages.warning(request,'Something went wrong')
-      return redirect(reverse('resume:add_resume', args= [resume.pk]))
-  else:
-    form = CreateResumeForm()
-    context = {'form': form}
-  return render(request,'resume/add_resume.html', context)
+        # If the request is not POST, just create an empty form
+        form = CreateResumeForm()
+
+    return render(request, 'resume/add_resume.html', {'form': form})
+
 
 def update_resume(request, pk):
   resume = Resume.objects.get(id =pk)
@@ -34,10 +38,10 @@ def update_resume(request, pk):
     if form.is_valid():
       form.save()
       messages.success(request, 'Resume has been updated successfully')
-      return redirect(reverse('resume:resume_details'))
+      return redirect(reverse('resume:resume_details' ,args=[resume.pk]))
     else:
       messages.warning(request,'Something went wrong')
-      return redirect(reverse('resume:update_resume'))
+      return redirect(reverse('resume:update_resume', args=[resume.pk]))
   else:
     form = UpdateResumeForm(instance=resume)
     context = {'form': form}
@@ -49,8 +53,8 @@ def update_resume(request, pk):
 
 def resume_details(request, pk):
   resume = Resume.objects.get(id = pk)
-  education = resume.education_set.all()
-  work = resume.work_set.all()
+  education = resume.educations.all()
+  work = resume.work_experiences.all()
   context ={'resume':resume, 'education':education, 'work':work}
   return render(request,'resume/resume_details.html', context)
 
@@ -70,7 +74,7 @@ def add_education(request, pk):
   else:
     form = AddEducationForm()
     context = {'form': form}
-  return render(request, 'resume:add_education.html', context)
+  return render(request, 'resume/add_education.html', context)
 
 def update_education(request, pk):
   education = Education.objects.get(id = pk)
@@ -79,7 +83,7 @@ def update_education(request, pk):
     if form.is_valid():
       form.save()
       messages.success(request, 'Education Has been updated')
-      return redirect(reverse('resume:Eduaction_details', args=[education.pk]))
+      return redirect(reverse('resume:resume_details', args=[education.pk]))
     else:
       messages.warning(request, 'Something Went Wrong')
       return redirect(reverse('resume:update_resume', args=[education.pk]))
