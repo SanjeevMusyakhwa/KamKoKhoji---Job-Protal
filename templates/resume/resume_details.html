@@ -57,15 +57,16 @@ Resume Details
           {% for education in education  %}
             
           
-          <div class="col-lg-4 col-md-6 mt-4 pt-5">
+          <div class="col-lg-6 col-md-6 mt-4 pt-5">
               <div class="border rounded candidates-profile-education text-center text-muted">
                   <div class="profile-education-icon border rounded-pill bg-white text-primary">
                       <i class="mdi mdi-36px mdi-school"></i>
                   </div>
                   <h6 class="text-uppercase f-17" class="text-muted">{{education.degree}}</h6>
-                  <h6 class="text-uppercase f-17"><a href="#" class="text-muted">{{education.school_name}}</a></h6>
+                  <h6 class="text f-17"><a href="#" class="text-muted">{{education.school_name }}</a></h6>
+                  <p class="text"><a href="#" class="text-muted">{{education.address}}</a></p>
                   <p class="pb-3 mb-0">{{education.course}}</p>
-                  <p class="f-14 mb-1">{{education.start_year}} - {{ education.end_year}}</p>
+                  <p class="f-14 mb-1">{{education.start_year}} - {% if education.studying == 'Yes' %} Present {% else %} {{ education.end_year }} {% endif %}</p>
                   
                   <p class="pt-3 border-top mb-0">
                     {% if request.user.is_candidate %}
@@ -90,41 +91,44 @@ Resume Details
           <div class="col-lg-12 d-flex justify-content-between">
             <h5 class="text-dark">Experiences :</h5>
             {% if request.user.is_candidate %}
-            <a href="" class="btn btn-success">Add Experiences</a>
+            <a href="{% url 'resume:add_experience' resume.pk%}" class="btn btn-success">Add Experiences</a>
             {% endif %}
           </div>
         </div>
 
         <div class="row">
-          <div class="col-lg-12">
-            <div class="job-detail border rounded mt-2 p-4">
-              <div class="job-detail-desc">
-                {% for experience in job.jobexperience_set.all %}
-                <div class="job-details-desc-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                    <div class="float-left mr-3">
-                      <i class="mdi mdi-send text-primary"></i>
-                    </div>
-                    <p class="text-muted mb-0">{{ experience.name }}
-                    {% if request.user.is_recruiter %}
-                    <div class="actions">
-                      <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger"
-                        title="Delete Experience">
-                        <i class="mdi mdi-delete"></i>
-                      </a>
-                    </div>
-                    {% endif %}
-                    </p>
+          {% for experience in work %}
+          <div class="col-lg-6 col-md-6 mt-4 pt-5">
+              <div class="border rounded candidates-profile-education text-center text-muted">
+                  <div class="profile-education-icon border rounded-pill bg-white text-primary">
+                      <i class="mdi mdi-36px mdi-briefcase"></i> <!-- Updated icon -->
                   </div>
-
-                </div>
-                {% empty %}
-                <p class="text-muted">No experiences added yet.</p>
-                {% endfor %}
+                  <h6 class="text-uppercase f-17 text-muted">{{ experience.role }}</h6>
+                  <h6 class="text f-17"><a href="#" class="text-muted">{{ experience.company_name }}</a></h6>
+                  <p class="text"><a href="#" class="text-muted">{{ experience.address }}</a></p>
+                  <p class="f-14 mb-1">{{ experience.start_year }} - {% if experience.working == 'Yes' %} Present {% else %} {{ experience.end_year }} {% endif %}</p>
+                  
+                  <p class="pt-3 border-top mb-0">
+                      {% if request.user.is_candidate %}
+                      <div class="actions">
+                          <a href="{% url 'resume:update_experience' experience.pk %}" class="text-primary mr-3">
+                              <i class="mdi mdi-pencil mdi-24px"></i> <!-- Enlarged icon -->
+                          </a>
+                          <a href="{% url 'resume:delete_experience' experience.pk %}" class="text-danger">
+                              <i class="mdi mdi-delete mdi-24px"></i> <!-- Enlarged icon -->
+                          </a>
+                      </div>
+                      {% endif %}
+                  </p>
               </div>
-            </div>
           </div>
-        </div>
+          {% empty %}
+          <div class="col-12 text-center mt-4">
+              <p class="text-muted">No work experiences found.</p>
+          </div>
+          {% endfor %}
+      </div>
+      
 
 
         <div class="row align-items-center mt-4">

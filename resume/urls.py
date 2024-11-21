@@ -8,7 +8,7 @@ urlpatterns = [
   path('add_education/<int:pk>/', views.add_education, name='add_education'),
   path('update_education/<int:pk>/', views.update_education, name='update_education'),
   path('delete_education/<int:pk>/', views.delete_education, name='delete_education'),
-  path('add_work/<int:pk>/', views.add_work, name='add_work'),
-  path('update_work/<int:pk>/', views.update_work, name='update_work'),
-  path('delete_work/<int:pk>/', views.delete_work, name='delete_work'),
+  path('add_experience/<int:pk>/', views.add_experience, name='add_experience'),
+  path('update_experience/<int:pk>/', views.update_experience, name='update_experience'),
+  path('delete_experience/<int:pk>/', views.delete_experience, name='delete_experience'),
 ]

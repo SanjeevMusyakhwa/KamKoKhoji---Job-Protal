@@ -24,16 +24,25 @@ class AddEducationForm(forms.ModelForm):
     exclude = ['resume']
 
 class UpdateEducationForm(forms.ModelForm):
-  class Meta:
+   start_year = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
+   end_year = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
+   
+   class Meta:
     model = Education
     exclude = ['resume']
 
-class AddWorkForm(forms.ModelForm):
-  class Meta:
+class AddExperienceForm(forms.ModelForm):
+   start_year = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
+   end_year = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
+   
+   class Meta:
     model = Work
     exclude = ['resume']
 
-class UpdateWorkForm(forms.ModelForm):
-  class Meta:
+class UpdateExperienceForm(forms.ModelForm):
+   start_year = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
+   end_year = forms.ChoiceField(choices=possible_years(datetime.now().year, 1900))
+   
+   class Meta:
     model = Work
     exclude = ['resume']

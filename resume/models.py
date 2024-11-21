@@ -75,20 +75,25 @@ class Resume(models.Model):
 class Education(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='educations')
     degree = models.CharField(max_length=20, choices=EDUCATION_CHOICES)
-    course = models.CharField(max_length=50, default='None')
+    course = models.CharField(max_length=50)
     start_year = models.PositiveIntegerField()
     end_year = models.PositiveIntegerField()
     studying = models.CharField(max_length=20, choices=STUDYING_CHOICES, default='No')
     school_name = models.CharField(max_length=200)
+    address = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.degree} at {self.school_name}"
 
 class Work(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='work_experiences')
-    role = models.CharField(max_length=20)
+    role = models.CharField(max_length=50)
     company_name = models.CharField(max_length=50)
     start_year = models.PositiveIntegerField()
     end_year = models.PositiveIntegerField()
+    address = models.CharField(max_length=255)
     working = models.CharField(max_length=20, choices=STUDYING_CHOICES, default='No')
+
+    def __str__(self):
+        return f"{self.role} at {self.company_name}"
 

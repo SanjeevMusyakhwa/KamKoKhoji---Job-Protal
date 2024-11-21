@@ -53,8 +53,8 @@ def update_resume(request, pk):
 
 def resume_details(request, pk):
   resume = Resume.objects.get(id = pk)
-  education = resume.educations.all()
-  work = resume.work_experiences.all()
+  education = resume.educations.all().order_by("-end_year")
+  work = resume.work_experiences.all().order_by("-end_year")
   context ={'resume':resume, 'education':education, 'work':work}
   return render(request,'resume/resume_details.html', context)
 
@@ -101,46 +101,46 @@ def delete_education(request, pk):
   messages.success(request, "Education Deleted Successfully")
   return redirect(reverse('resume:resume_details', args=[resume.pk]))
 
-def add_work(request, pk):
+def add_experience(request, pk):
   resume = Resume.objects.get(id = pk)
   if request.method == 'POST':
-    form = AddWorkForm(request.POST)
+    form = AddExperienceForm(request.POST)
     if form.is_valid():
       work = form.save(commit=False)
       work.resume = resume
       work.save()
-      messages.success(request, 'Work has Been added to resume')
-      return redirect(reverse('resume:add_work', args=[resume.pk]))
+      messages.success(request, 'Experience has been added to your Resume')
+      return redirect(reverse('resume:add_experience', args=[resume.pk]))
     else:
       messages.warning(request,'Something Went Worng')
-      return redirect(reverse('resume:add_work', args=[resume.pk]))
+      return redirect(reverse('resume:add_experience', args=[resume.pk]))
   else:
-    form = AddWorkForm()
+    form = AddExperienceForm()
     context = {'form': form}
-  return render(request, 'resume/add_work.html', context)
+  return render(request, 'resume/add_experience.html', context)
 
 
-def update_work(request, pk):
-  work = Work.objects.get(id = pk)
-  if request.method == 'POST':
-    form = UpdateWorkForm(request.POST, instance=work)
-    if form.is_valid():
-      form.save()
-      messages.success(request, 'Work Has been updated')
-      return redirect(reverse('resume:update_work', args=[work.pk]))
+def update_experience(request, pk):
+    experience = get_object_or_404(Work, id=pk)  # Ensure proper error handling
+    if request.method == 'POST':
+        form = UpdateExperienceForm(request.POST, instance=experience)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Experience has been updated successfully to your Resume!')
+            return redirect(reverse('resume:resume_details', args=[experience.resume.pk]))
+        else:
+            messages.warning(request, 'Something went wrong. Please try again.')
     else:
-      messages.warning(request, 'Something went worng')
-      return redirect(reverse('resume:update_work', args=[work.pk]))
-  else:
-    form = UpdateWorkForm(instance = work)
-    context = {'form': form}
-  return render(request,'resume/update_work.html', context)
+        form = UpdateExperienceForm(instance=experience)
 
-def delete_work(request, pk):
+    context = {'form': form}
+    return render(request, 'resume/update_experience.html', context)
+
+def delete_experience(request, pk):
   work = Work.objects.get(id = pk)
   resume = Resume.objects.get(pk = work.resume.pk)
   work.delete()
-  messages.success(request, "Work Deleted Successfully")
+  messages.success(request, "Experience Deleted Successfully")
   return redirect(reverse('resume:resume_details', args=[resume.pk]))
 
 

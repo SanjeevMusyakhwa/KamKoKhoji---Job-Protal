@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% block title %}
-  Add Education
+  Update Experience
 {% endblock title %}
 
 {% block content %}
@@ -14,24 +14,18 @@
             <div id="message3"></div>
             <form method="post" name="contact-form" id="contact-form3">
               {% csrf_token %}
-              <h4 class="text-dark mb-3">Add  Education of {{ request.user.first_name }} {{ request.user.last_name }}</h4>
+              <h4 class="text-dark mb-3">Update  Experience of {{ request.user.first_name }} {{ request.user.last_name }}</h4>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Degree</label>
-                    {{ form.degree|add_class:"form-control" }}
+                    <label class="text-muted">Role</label>
+                    {{ form.role|add_class:"form-control" }}
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Course</label>
-                    {{ form.course|add_class:"form-control" }}
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group app-label mt-2">
-                    <label class="text-muted">School / College Name</label>
-                    {{ form.school_name|add_class:"form-control" }}
+                    <label class="text-muted">Company Name</label>
+                    {{ form.company_name|add_class:"form-control" }}
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -55,14 +49,14 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Still Studying</label>
-                    {{ form.studying|add_class:"form-control" }}
+                    <label class="text-muted">Still Working</label>
+                    {{ form.working|add_class:"form-control" }}
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12 mt-2">
-                  <button class="btn btn-success" type="submit">Add Education</button>
+                  <button class="btn btn-success" type="submit">Update Experience</button>
                   <a class="btn btn-primary" href="{% url 'resume:resume_details' request.user.resume.pk %}">Back To Resume</a>
                 </div>
               </div>
