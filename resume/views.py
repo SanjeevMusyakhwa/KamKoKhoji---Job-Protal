@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
@@ -77,20 +77,22 @@ def add_education(request, pk):
   return render(request, 'resume/add_education.html', context)
 
 def update_education(request, pk):
-  education = Education.objects.get(id = pk)
-  if request.method == 'POST':
-    form = UpdateEducationForm(request.POST, instance=education)
-    if form.is_valid():
-      form.save()
-      messages.success(request, 'Education Has been updated')
-      return redirect(reverse('resume:resume_details', args=[education.pk]))
+    education = get_object_or_404(Education, id=pk)  # Improved handling
+    resume = education.resume
+
+    if request.method == 'POST':
+        form = UpdateEducationForm(request.POST, instance=education)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Education has been updated successfully!')
+            return redirect(reverse('resume:resume_details', args=[resume.pk]))
+        else:
+            messages.warning(request, 'Something went wrong. Please try again.')
     else:
-      messages.warning(request, 'Something Went Wrong')
-      return redirect(reverse('resume:update_resume', args=[education.pk]))
-  else:
-    form = UpdateEducationForm(instance=education)
+        form = UpdateEducationForm(instance=education)
+
     context = {'form': form}
-  return render(request, 'resume/update_education.html', context)
+    return render(request, 'resume/update_education.html', context)
 
 def delete_education(request, pk):
   education = Education.objects.get(id = pk)

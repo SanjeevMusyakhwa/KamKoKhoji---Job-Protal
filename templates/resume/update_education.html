@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% block title %}
-  Job Experiences
+  Update Education
 {% endblock title %}
 
 {% block content %}
@@ -57,7 +57,7 @@
               <div class="row">
                 <div class="col-lg-12 mt-2">
                   <button class="btn btn-success" type="submit">Update Education</button>
-                  <a class="btn btn-primary" href="">Back To Job</a>
+                  <a class="btn btn-primary" href="{% url 'resume:resume_details' request.user.resume.pk %}">Back To Job</a>
                 </div>
               </div>
             </form>
