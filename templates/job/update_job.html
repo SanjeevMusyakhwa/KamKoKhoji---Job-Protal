@@ -58,6 +58,11 @@
               {{ form.job_category|add_class:"form-control" }} 
             </div>
 
+            <div class="col-md-12 mb-3">
+              <label for="status" class="form-label text-muted">status</label>
+              {{ form.status|add_class:"form-control" }} 
+            </div>
+            
             <!-- Job Description -->
             <div class="col-md-12 mb-3">
               <label for="job_description" class="form-label text-muted">Job Description</label>
@@ -65,11 +70,7 @@
             </div>
           </div>
           
-          <div class="col-md-12 mb-3">
-            <label for="job_description" class="form-label text-muted">status</label>
-            {{ form.status|add_class:"form-control" }} 
-          </div>
-        </div>
+          
           <!-- Submit Button -->
           <div class="mb-2 p-2">
             <button type="submit" class="btn btn-primary mb-2">Update Job</button>
