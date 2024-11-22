@@ -4,3 +4,4 @@ from resume.models import *
 admin.site.register(Resume)
 admin.site.register(Education)
 admin.site.register(Work)
+admin.site.register(Skills)

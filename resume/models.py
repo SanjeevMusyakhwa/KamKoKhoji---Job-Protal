@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from datetime import date
+from django.core.validators import MinValueValidator, MaxValueValidator
 User = get_user_model()
 
 PROVINCE_CHOICES = (
@@ -96,4 +97,15 @@ class Work(models.Model):
 
     def __str__(self):
         return f"{self.role} at {self.company_name}"
+
+class Skills(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='skills')
+    skill_name = models.CharField(max_length=50)
+    proficiency_level = models.PositiveIntegerField(validators=[ MinValueValidator(0),  MaxValueValidator(100)  ],default=0)
+
+    def __str__(self):
+        return f"{self.skill_name}, {self.proficiency_level}"
+
+
+
 

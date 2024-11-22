@@ -135,41 +135,43 @@ Resume Details
           <div class="col-lg-12 d-flex justify-content-between">
             <h5 class="text-dark">Skills :</h5>
             {% if request.user.is_candidate %}
-            <a href="" class="btn btn-success">Add Skills</a>
+            <a href="{% url 'resume:add_skill' resume.pk %}" class="btn btn-success">Add Skills</a>
             {% endif %}
           </div>
         </div>
-
         <div class="row">
-          <div class="col-lg-12">
-            <div class="job-detail border rounded mt-2 p-4">
-              <div class="job-detail-desc">
-                {% for experience in job.jobexperience_set.all %}
-                <div class="job-details-desc-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                    <div class="float-left mr-3">
-                      <i class="mdi mdi-send text-primary"></i>
+          <div class="col-md-12 pt-2">
+            {% for skill in skills %}
+            <div class="progress-box mt-4">
+                <h6 class="title text-muted">{{ skill.skill_name }}</h6>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped position-relative bg-primary" 
+                         style="width: {{ skill.proficiency_level|default:0|floatformat:0 }}%;">
+                        <div class="progress-value d-block text-muted h6">
+                            {{ skill.proficiency_level|default:0 }}%
+                        </div>
                     </div>
-                    <p class="text-muted mb-0">{{ experience.name }}
-                    {% if request.user.is_recruiter %}
-                    <div class="actions">
-                      <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger"
-                        title="Delete Experience">
-                        <i class="mdi mdi-delete"></i>
-                      </a>
-                    </div>
-                    {% endif %}
-                    </p>
-                  </div>
-
                 </div>
-                {% empty %}
-                <p class="text-muted">No Skills added yet.</p>
-                {% endfor %}
-              </div>
+                <p class="pt-3 border-top mb-0">
+                  {% if request.user.is_candidate %}
+                  <div class="actions">
+                      <a href="{% url 'resume:update_skill' skill.pk %}" class="text-primary mr-3">
+                          <i class="mdi mdi-pencil mdi-24px"></i> <!-- Enlarged icon -->
+                      </a>
+                      <a href="{% url 'resume:delete_skill' skill.pk %}" class="text-danger">
+                          <i class="mdi mdi-delete mdi-24px"></i> <!-- Enlarged icon -->
+                      </a>
+                  </div>
+                  {% endif %}
             </div>
-          </div>
+            {% empty %}
+            <p class="text-muted">No Skills added yet.</p>
+            {% endfor %}
+            
+            
         </div>
+      </div>
+        
       </div>
 
       <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">

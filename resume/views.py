@@ -55,7 +55,8 @@ def resume_details(request, pk):
   resume = Resume.objects.get(id = pk)
   education = resume.educations.all().order_by("-end_year")
   work = resume.work_experiences.all().order_by("-end_year")
-  context ={'resume':resume, 'education':education, 'work':work}
+  skills = resume.skills.all()
+  context ={'resume':resume, 'education':education, 'work':work, 'skills': skills}
   return render(request,'resume/resume_details.html', context)
 
 def add_education(request, pk):
@@ -142,5 +143,47 @@ def delete_experience(request, pk):
   work.delete()
   messages.success(request, "Experience Deleted Successfully")
   return redirect(reverse('resume:resume_details', args=[resume.pk]))
+
+def add_skill(request, pk):
+    resume = get_object_or_404(Resume, id=pk)
+    if request.method == 'POST':
+        form = AddSkillForm(request.POST)
+        if form.is_valid():
+            skills = form.save(commit=False)
+            skills.resume = resume
+            skills.save()
+            messages.success(request, 'Skill added successfully to the resume.')
+            return redirect(reverse('resume:resume_details', args=[resume.pk]))
+        else:
+            messages.warning(request, 'Something went wrong.')
+    else:
+        form = AddSkillForm()
+    return render(request, 'resume/add_skill.html', {'form': form})
+
+def update_skill(request,pk):
+  skill = get_object_or_404(Skills, id=pk)  # Ensure proper error handling
+  if request.method == 'POST':
+    form = AddSkillForm(request.POST, instance=skill)
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'Experience has been updated successfully to your Resume!')
+      return redirect(reverse('resume:resume_details', args=[skill.resume.pk]))
+    else:
+      messages.warning(request, 'Something went wrong. Please try again.')
+  else:
+    form = UpdateSkillForm(instance=skill)
+    context = {'form': form}
+  return render(request, 'resume/update_skill.html', context)
+
+
+
+def delete_skill(request,pk):
+  skill = Skills.objects.get(id = pk)
+  resume = Resume.objects.get(pk = skill.resume.pk)
+  skill.delete()
+  messages.success(request, 'Skill Deleted Successfully')
+  return redirect(reverse('resume:resume_details', args=[resume.pk]))
+
+
 
 

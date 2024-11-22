@@ -1,4 +1,4 @@
-from .models import Resume, Education, Work
+from .models import Resume, Education, Work, Skills
 from django import forms
 from datetime import datetime
 
@@ -45,4 +45,14 @@ class UpdateExperienceForm(forms.ModelForm):
    
    class Meta:
     model = Work
+    exclude = ['resume']
+
+class AddSkillForm(forms.ModelForm):
+  class Meta:
+    model = Skills
+    exclude = ['resume']
+
+class UpdateSkillForm(forms.ModelForm):
+  class Meta:
+    model = Skills
     exclude = ['resume']
