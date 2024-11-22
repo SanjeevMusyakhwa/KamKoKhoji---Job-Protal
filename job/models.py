@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from company.models import Company
-
+from resume.models import Resume
 User = get_user_model()
 
 PAY_MODE = (
@@ -29,6 +29,11 @@ STATUS = (
     ('Pending','Pending'),
     ('Active','Active'),
     ('Expired','Expired'),
+)
+JOBAPPLICATION_STATUS = (
+    ('Pending','Pending'),
+    ('Approved','Approved'),
+    ('Declined','Declined'),
 )
 
 class Job(models.Model):
@@ -61,3 +66,15 @@ class JobExperience(models.Model):  # Corrected the typo
 
     def __str__(self):
         return f"Experience: {self.name} for {self.job.title}"
+    
+class JobApplication(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    applied_date_time = models.DateTimeField(auto_now_add=True)
+    applied_date = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=JOBAPPLICATION_STATUS, default='Pending')
+
+    def __str__(self):
+        return f"{self.job} applied at {self.resume}"
+    
+

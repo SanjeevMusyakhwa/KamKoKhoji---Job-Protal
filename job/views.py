@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
 from .forms import *
@@ -114,6 +114,55 @@ def delete_jobexperience(request, pk):
   messages.success(request,'Job Experience deleted successfully')
   return redirect(reverse('job:job_details', args=[get_job.pk]))
 
+
+def all_joblist(request):
+  jobs = Job.objects.filter(status = 'Active')
+  context = {'jobs': jobs}
+  return render(request, 'job/all_joblist.html', context)
+
+def apply_for_job(request, pk):
+    # Fetch the job or return 404 if not found
+    job = get_object_or_404(Job, id=pk)
+
+    # Check if the job is active
+    if job.status != 'Active':
+        messages.warning(request, 'This job is no longer available.')
+        return redirect(reverse('job:all_joblist'))
+
+    # Check if the user has a resume
+    if not getattr(request.user, 'resume', None):
+        messages.warning(request, 'You don\'t have a resume. Please create one before applying for jobs.')
+        return redirect(reverse('job:all_joblist'))
+
+    # Check if the user has already applied for this job
+    has_applied = job.jobapplication_set.filter(resume__pk=request.user.resume.pk).exists()
+    if has_applied:
+        messages.warning(request, 'You have already applied for this job.')
+    else:
+        # Create the job application
+        JobApplication.objects.create(job=job, resume=request.user.resume)
+        messages.success(request, 'You have successfully applied for this job.')
+
+    return redirect(reverse('job:all_joblist'))
+
+
+def manage_appliedjobs(request):
+    applied_jobs = JobApplication.objects.filter(resume=request.user.resume)
+    context = {'applied_jobs': applied_jobs}
+    return render(request, 'job/manage_appliedjobs.html', context)
+
+def delete_appliedjob(request, pk):
+  job_application = JobApplication.objects.get(id = pk)
+  job_application.delete()
+  messages.success(request,'Applied job deleted successfully')
+  return redirect(reverse('job:manage_appliedjobs'))
+  
+
+
+
+
+
+    
 
   
 

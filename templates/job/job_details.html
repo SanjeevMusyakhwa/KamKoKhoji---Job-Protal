@@ -235,7 +235,7 @@
 
         <div class="job-detail border rounded mt-4">
           {% if request.user.is_candidate %}
-          <a href="#" class="btn btn-primary btn-block">Apply For Job</a>
+          <a href="{% url 'job:apply_for_job' job.pk %}" class="btn btn-primary btn-block">Apply For Job</a>
           {% else %}
           <a href="{% url 'job:update_job' job.pk %}" class="btn btn-primary btn-block">Update Job Information</a>
           {% endif %}

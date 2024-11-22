@@ -34,7 +34,7 @@
             <a href="{% url 'job:job_details' job.pk %}" class="text-dark">
             {{ job.title }} </a><br> <i class="mdi mdi-map-marker"></i>{{ job.company.address }}
           </td>
-          <td>App</td>
+          <td> {{ job.jobapplication_set.all.count }} Applied</td>
           <td>
             {{ job.date_posted }}<br>
             <span>{{ job.expiry_date }}</span>

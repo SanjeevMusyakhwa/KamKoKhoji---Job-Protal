@@ -127,10 +127,9 @@
             {% elif request.user.is_candidate %}
             <li><a href="{% url 'dashboard:dashboard_candidate' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
             {% if request.user.has_resume %}
-            <li><a href=""><i class="mdi mdi-domain"></i>Apply for Jobs</a></li>
+            <li><a href="{% url 'job:all_joblist' %}"><i class="mdi mdi-domain"></i>Apply for Jobs</a></li>
             <li><a href="{% url 'resume:resume_details' request.user.resume.pk %}"><i class="mdi mdi-domain"></i>Resume Details </a></li>
-            <li><a href=""><i class="mdi mdi-briefcase"></i> Applied Jobs</a></li>
-            <li><a href=""><i class="mdi mdi-domain"></i>Manage Applied Jobs</a></li>
+            <li><a href="{% url 'job:manage_appliedjobs' %}"><i class="mdi mdi-domain"></i>Manage Applied Jobs</a></li>
             {% else %}
             <li><a href="{% url 'resume:add_resume' %}"><i class="mdi mdi-domain"></i>Add Resume</a></li>
             {% endif %}

@@ -4,3 +4,4 @@ from job.models import *
 admin.site.register(Job)
 admin.site.register(JobResponsibility)
 admin.site.register(JobExperience)
+admin.site.register(JobApplication)
