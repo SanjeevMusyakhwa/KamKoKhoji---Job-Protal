@@ -1,56 +1,92 @@
 {% extends "base.html" %}
+
 {% block title %}
   Recruiter
 {% endblock title %}
+
 {% block content %}
 
 {% if request.user.is_recruiter and not request.user.has_company %}
-          <div class="alert alert-warning alert-dismissible fade show mt-2 ml-5" role="alert">
-            <p class="mt-3">Add Your Company information to post jobs <a href="{% url 'company:add_company' %}" class="text-danger">Start Now</a> </p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {% endif %}
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-5 p-2">
-  <!-- Card 1 -->
-  <div class="col ml-5">
-    <div class="card h-100 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Posted Jobs</h5>
-        <p class="card-text">
-          All Job List
-        </p>
-        <a href="{% url 'job:joblist_percompany' %}" class="btn btn-primary">View all</a>
-      </div>
-      
+  <div class="alert alert-warning alert-dismissible fade show mt-2 ml-5" role="alert">
+    <p class="mt-3">Add Your Company information to post jobs 
+      <a href="{% url 'company:add_company' %}" class="text-danger">Start Now</a> 
+    </p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+
+<!-- Main Content -->
+<div class="container-fluid">
+  <div class="row row-cols-1 row-cols-md-4 g-4 mt-5 p-2 ml-2">
+    <div class="col-md-3">
+      <a href="#" class="btn btn-primary btn-block">Post a New Job</a>
+    </div>
+    <div class="col-md-3">
+      <a href="#" class="btn btn-secondary btn-block">Manage Applications</a>
+    </div>
+    <div class="col-md-3">
+      <a href="#" class="btn btn-success btn-block">View Reports</a>
+    </div>
+    <div class="col-md-3">
+      <a href="#" class="btn btn-warning btn-block">Update Profile</a>
     </div>
   </div>
 
-  <!-- Card 2 -->
-  <div class="col">
-    <div class="card h-100 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Application</h5>
-        <p class="card-text">
-          All Job Application
-        </p>
-        <a href="" class="btn btn-primary">View all</a>
+  <!-- Card Section -->
+  <div class="row mt-4 ml-3">
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Jobs</h5>
+          <p class="card-text h3">25</p>
+        </div>
       </div>
-      
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Applications</h5>
+          <p class="card-text h3">150</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Shortlisted</h5>
+          <p class="card-text h3">40</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Pending Jobs</h5>
+          <p class="card-text h3">5</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Card 3 -->
-  <div class="col">
-    <div class="card h-100 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Shortlisted Resumes</h5>
-        <p class="card-text">
-          All Shortlisted Resumes
-        </p>
-        <a href="" class="btn btn-primary">View all</a>
-      </div>
+  <!-- Recent Activity Section -->
+  <div class="row ml-3 mt-3">
+    <div class="col-md-6">
+      <h5>Recent Job Postings</h5>
+      <ul class="list-group">
+        <li class="list-group-item">Software Engineer - Posted 2 days ago</li>
+        <li class="list-group-item">Data Analyst - Posted 1 day ago</li>
+        <li class="list-group-item">UI/UX Designer - Posted 4 hours ago</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h5>Recent Applications</h5>
+      <ul class="list-group">
+        <li class="list-group-item">John Doe - Applied for Software Engineer</li>
+        <li class="list-group-item">Jane Smith - Applied for Data Analyst</li>
+        <li class="list-group-item">Mike Brown - Applied for UI/UX Designer</li>
+      </ul>
     </div>
   </div>
 </div>

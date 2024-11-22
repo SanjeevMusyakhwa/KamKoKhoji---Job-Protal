@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-end mb-1">
+  {% if request.user.is_recruiter and request.user.company.pk == company.pk %}
+  <a href="{% url 'job:create_job' %}" class="btn btn-success mr-2">Post a Job</a>
+    <a href="{% url 'company:update_company' request.user.company.pk %}" class="btn btn-primary">Update Company</a>
+  {% endif %}
+</div>

@@ -58,10 +58,13 @@ def joblist_percompany(request):
   return render(request, 'job/joblist_percompany.html', context)
 
 def job_details(request, pk):
-  job = Job.objects.get(id = pk)
-  company = Company.objects.get(pk=job.company.pk)
-  context = {'job': job, 'company':company}
-  return render(request, 'job/job_details.html', context)
+    job = Job.objects.get(id=pk)
+    company = job.company
+    # Fetch 4 jobs, excluding the current job
+    related_jobs = company.job_set.exclude(id=pk)[:3]
+    context = {'job': job, 'company': company, 'related_jobs': related_jobs}
+    return render(request, 'job/job_details.html', context)
+
 
 def add_jobresponsibility(request, pk):
   job = Job.objects.get(pk = pk)

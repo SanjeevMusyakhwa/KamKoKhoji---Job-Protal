@@ -105,9 +105,13 @@
                 <!-- Navigation Menu-->   
                 <ul class="navigation-menu">
                     <li><a href="{% url 'website:home' %}">Home</a></li>
+                    {% if request.user.is_candidate %}
+                      
+                    
                     <li class="has-submenu">
-                        <a href="">Jobs</a>
+                        <a href="{% url 'job:all_joblist' %}">Jobs</a>
                     </li>
+                    {% endif %}
     
                     
                     <li>

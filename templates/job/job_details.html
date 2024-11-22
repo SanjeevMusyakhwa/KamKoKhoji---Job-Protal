@@ -141,33 +141,40 @@
             </div>
 
             <div class="col-lg-12 col-md-7">
-              {% with job.company.job_set.all as jobs %}
-              {% if jobs.count > 1 %}
-              {% for related_job in jobs %}
-              {% if related_job.pk != job.pk %}
-              <div class="shadow rounded p-4 mt-4">
-                <img src="{% static 'images/featured-job/img-5.png' %}" alt=""
-                  height="50" class="float-left shadow rounded-pill mr-3">
-                <div class="d-block overflow-hidden">
-                  <h6 class="text-muted font-weight-light float-right mb-0"><i class="mdi mdi-clock-outline mr-1"></i>{{ related_job.post_date_time|timesince }}</h6>
-                  <h5 class="mb-1"><a href="{% url 'job:job_details' related_job.pk %}" class="text-dark">{{ related_job.title }}</a></h5>
-                  <small class="text-muted font-weight-bold">
-                    <i class="mdi mdi-bank text-muted"></i>{{ related_job.company.primary_industry }}
-                  </small>
-                  <small class="text-muted font-weight-bold ml-2">
-                    <i class="mdi mdi-timer-sand text-muted"></i>{{ related_job.job_type }}
-                  </small>
-                  <small class="text-muted font-weight-bold ml-2"><i class="mdi mdi-map-marker mr-2"></i>{{ related_job.company.address }}</small>
-                  <small class="text-muted font-weight-bold ml-2"><i class="mdi mdi-currency-inr text-muted"></i>{{ related_job.salary|intcomma }}</small>
-                </div>
-              </div>
-              {% endif %}
-              {% endfor %}
+              {% if related_jobs %}
+                  {% for related_job in related_jobs %}
+                      <div class="shadow rounded p-4 mt-4">
+                          <img src="{% static 'images/featured-job/img-5.png' %}" alt=""
+                               height="50" class="float-left shadow rounded-pill mr-3">
+                          <div class="d-block overflow-hidden">
+                              <h6 class="text-muted font-weight-light float-right mb-0">
+                                  <i class="mdi mdi-clock-outline mr-1"></i>{{ related_job.post_date_time|timesince }}
+                              </h6>
+                              <h5 class="mb-1">
+                                  <a href="{% url 'job:job_details' related_job.pk %}" class="text-dark">
+                                      {{ related_job.title }}
+                                  </a>
+                              </h5>
+                              <small class="text-muted font-weight-bold">
+                                  <i class="mdi mdi-bank text-muted"></i>{{ related_job.company.primary_industry }}
+                              </small>
+                              <small class="text-muted font-weight-bold ml-2">
+                                  <i class="mdi mdi-timer-sand text-muted"></i>{{ related_job.job_type }}
+                              </small>
+                              <small class="text-muted font-weight-bold ml-2">
+                                  <i class="mdi mdi-map-marker mr-2"></i>{{ related_job.company.address }}
+                              </small>
+                              <small class="text-muted font-weight-bold ml-2">
+                                  <i class="mdi mdi-currency-inr text-muted"></i>{{ related_job.salary|intcomma }}
+                              </small>
+                          </div>
+                      </div>
+                  {% endfor %}
               {% else %}
-              <p class="text-muted">No other jobs available at this time.</p>
+                  <p class="text-muted">No other jobs available at this time.</p>
               {% endif %}
-              {% endwith %}
-            </div>
+          </div>
+          
           </div>
         </div>
       </div>
