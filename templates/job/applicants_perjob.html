@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}
+Applicants Per Job
+{% endblock title %}
+
+{% block content %}
+<section class="section pt-0">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-12">
+        <h5 class="text-dark mb-0 pt-2">Applicants</h5>
+      </div>
+      <h5 class="text-dark mb-0 pt-2">{{ job.title }}</h5>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mt-4" id="applicantsTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="total-applicants-tab" data-toggle="tab" href="#total-applicants" role="tab" aria-controls="total-applicants" aria-selected="true">
+          Total Applicants ({{ applicants.count }})
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="approved-applicants-tab" data-toggle="tab" href="#approved-applicants" role="tab" aria-controls="approved-applicants" aria-selected="false">
+          Approved Applicants ({{ approved.count }})
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="declined-applicants-tab" data-toggle="tab" href="#declined-applicants" role="tab" aria-controls="declined-applicants" aria-selected="false">
+          Declined Applications ({{ declined.count }})
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-4" id="applicantsTabContent">
+      <!-- Total Applicants Tab Content -->
+      <div class="tab-pane fade show active" id="total-applicants" role="tabpanel" aria-labelledby="total-applicants-tab">
+        <table class="table table-bordered table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">S.N</th>
+              <th scope="col">Applicant Name</th>
+              <th scope="col">Resume</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for applicant in applicants %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ applicant.resume.user.get_full_name }}</td>
+              <td>
+                <a href="{% url 'resume:resume_details' applicant.resume.pk %}" class="btn btn-sm btn-outline-info" role="button">
+                  View Resume
+                </a>
+              </td>
+              <td>{{ applicant.status }}</td>
+              <td>
+                <a href="{% url 'job:accept_application' applicant.pk %}" class="btn btn-sm btn-outline-primary" role="button" title="Approve">Approve</a>
+                <a href="{% url 'job:reject_application' applicant.pk %}" class="btn btn-sm btn-outline-danger" role="button" title="Reject">Reject</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">No applicants available</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Approved Applicants Tab Content -->
+      <div class="tab-pane fade" id="approved-applicants" role="tabpanel" aria-labelledby="approved-applicants-tab">
+        <table class="table table-bordered table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">S.N</th>
+              <th scope="col">Applicant Name</th>
+              <th scope="col">Resume</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for applicant in approved %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ applicant.resume.user.get_full_name }}</td>
+              <td>
+                <a href="{% url 'resume:resume_details' applicant.resume.pk %}" class="btn btn-sm btn-outline-info" role="button">
+                  View Resume
+                </a>
+              </td>
+              <td class="text-success">Approved</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="text-center">No approved applicants available</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Declined Applicants Tab Content -->
+      <div class="tab-pane fade" id="declined-applicants" role="tabpanel" aria-labelledby="declined-applicants-tab">
+        <table class="table table-bordered table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">S.N</th>
+              <th scope="col">Applicant Name</th>
+              <th scope="col">Resume</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for applicant in declined %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ applicant.resume.user.get_full_name }}</td>
+              <td>
+                <a href="{% url 'resume:resume_details' applicant.resume.pk %}" class="btn btn-sm btn-outline-info" role="button">
+                  View Resume
+                </a>
+              </td>
+              <td class="text-danger">Declined</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="text-center">No declined applicants available</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock content %}

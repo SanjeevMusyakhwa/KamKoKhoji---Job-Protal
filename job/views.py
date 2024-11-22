@@ -156,6 +156,29 @@ def delete_appliedjob(request, pk):
   job_application.delete()
   messages.success(request,'Applied job deleted successfully')
   return redirect(reverse('job:manage_appliedjobs'))
+
+
+def jobapplicants_perjob(request, pk):
+  job = Job.objects.get(id = pk)
+  applicants = job.jobapplication_set.all()
+  approved = job.jobapplication_set.filter(status = 'Approved')
+  declined = job.jobapplication_set.filter(status = 'Declined')
+  context = {'applicants': applicants, 'job': job, 'approved': approved, 'declined': declined}
+  return render(request, 'job/applicants_perjob.html', context )
+
+def accept_application(request, pk):
+  application = JobApplication.objects.get(id = pk)
+  application.status = 'Approved'
+  application.save()
+  messages.success(request, 'You have accepted this candidate')
+  return redirect(reverse('job:jobapplicants_perjob', args=[application.job.pk]))
+
+def reject_application(request, pk):
+  application = JobApplication.objects.get(id = pk)
+  application.status = 'Declined'
+  application.save()
+  messages.warning(request, 'You have rejected this candidate')
+  return redirect(reverse('job:jobapplicants_perjob', args=[application.job.pk]))
   
 
 
