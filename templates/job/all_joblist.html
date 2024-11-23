@@ -7,180 +7,197 @@
 {% block content %}
    <!-- JOB LIST START -->
    <section class="section pt-0">
-    <div class="container mt-2">
-      {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %}
-      {% endif %}
+    <div class="container-fluid ml-5">
+      {% include "job/all_joblist/job_message/message.html" %}
       <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="section-title text-center mb-4 pb-2">
-                    <h4 class="title title-line pb-5">Available job for you</h4>
-                    <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project. We'll quickly match you with the right freelancers.</p>
-                </div>
-            </div>
-        </div>
+        {% include "job/all_joblist/job_title/title.html" %}
+      </div>
 
         <div class="row">
-            <div class="col-lg-3">
-                <div class="left-sidebar">
-                    <div class="accordion" id="accordionExample">
-                        <div class="card rounded mt-4">
-                            <a data-toggle="collapse" href="#collapseOne" class="job-list" aria-expanded="true" aria-controls="collapseOne">
-                                <div class="card-header" id="headingOne">
-                                    <h6 class="mb-0 text-dark f-18">Date Posted</h6>
-                                </div>
-                            </a>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
-                                <div class="card-body p-0">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted" for="customRadio1">Last Hour</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted" for="customRadio2">Last 24 hours</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted" for="customRadio3">Last 7 days</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted" for="customRadio4">Last 14 days</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted" for="customRadio5">Last 30 days</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- collapse one end -->
-                        <div class="card rounded mt-4">
-                            <a data-toggle="collapse" href="#collapsetwo" class="job-list" aria-expanded="true" aria-controls="collapsetwo">
-                                <div class="card-header" id="headingtwo">
-                                    <h6 class="mb-0 text-dark f-18">Categories</h6>
-                                </div>
-                            </a>
-                            <div id="collapsetwo" class="collapse show" aria-labelledby="headingtwo">
-                                <div class="card-body p-0">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio7" name="customRadio1" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted f-15" for="customRadio7">Digital & Creative</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio8" name="customRadio1" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted f-15" for="customRadio8">Accountancy</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio9" name="customRadio1" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted f-15" for="customRadio9">Banking</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio10" name="customRadio1" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted f-15" for="customRadio10">IT Contractor</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio11" name="customRadio1" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted f-15" for="customRadio11">Graduate</label>
-                                    </div>
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio12" name="customRadio1" class="custom-control-input">
-                                        <label class="custom-control-label ml-1 text-muted f-15" for="customRadio12">Estate Agency</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
+          <div class="col-lg-6 col-md-12 mt-4">
+            <div class="card rounded">
+              <a data-toggle="collapse" href="#collapseOne" class="job-list" aria-expanded="true" aria-controls="collapseOne">
+                <div class="card-header" id="headingOne">
+                  <h6 class="mb-0 text-dark f-18">Date Posted</h6>
                 </div>
+              </a>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+                <div class="card-body p-0">
+                  {% for job in jobs %}
+                    <div class="custom-control custom-radio">
+                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label ml-1 text-muted" for="customRadio1">{{ job.post_date_time|naturaltime }}</label>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="registration-form-box p-4 border rounded">
+              <i class="fa fa-list-alt mb-3"></i>
+              <form method="get" action="{% url 'job:all_joblist' %}">
+                <div class="form-group">
+                  <label for="select-category" class="form-label">Categories</label>
+                  <select id="select-category" name="category" class="form-control">
+                    <option value="">Categories...</option>
+                    {% for category in categories %}
+                      <option value="{{ category }}" {% if request.GET.category == category %}selected{% endif %}> {{ category }} </option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Filter</button>
+              </form>
+            </div>
+          </div>
+
+            <!-- Location Select -->
+            <div class="form-group">
+                <label for="select-location" class="form-label">Locations</label>
+                <select id="select-location" name="location" class="form-control">
+                    <option value="">Locations...</option>
+                    {% for location in locations %}
+                        <option value="{{ location }}" {% if request.GET.location == location %}selected{% endif %}>
+                            {{ location }}
+                        </option>
+                    {% endfor %}
+                </select>
             </div>
 
+            <!-- Filter Button -->
+            <button type="submit" class="btn btn-primary btn-block mt-3">Filter</button>
+        </form>
+    </div>
+</div>
+
+
             <div class="col-lg-9 mt-4 pt-2">
-                <div class="row align-items-center">
-                    <div class="col-lg-12">
-                        <div class="show-results">
-                            <div class="float-left">
-                                <h5 class="text-dark mb-0 pt-2 f-18">Showing results 0-20</h5>
-                            </div>
-                            <div class="sort-button float-right">
-                                <select class="nice-select rounded">
-                                    <option data-display="Select">Nothing</option>
-                                    <option value="1">Web Developer</option>
-                                    <option value="2">PHP Developer</option>
-                                    <option value="3">Web Designer</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row">
-                  {% for job in jobs %}
-                    
-                 
-                    <div class="col-lg-12  pt-2">
-                        <div class="job-list-box border rounded">
-                            <div class="p-3">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2">
-                                        <div class="company-logo-img">
-                                            <img src="{% static 'images/featured-job/img-1.png' %}" alt="" class="img-fluid mx-auto d-block">
+                    {% for job in jobs %}
+                        <div class="col-lg-6 pt-2">
+                            <div class="job-list-box border rounded">
+                                <div class="p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-3">
+                                            <div class="company-logo-img">
+                                                <img src="{% static 'images/featured-job/img-1.png' %}" alt="" class="img-fluid mx-auto d-block">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-7 col-md-9">
-                                        <div class="job-list-desc">
-                                            <h6 class="mb-2"><a href="{% url 'job:job_details' job.pk %}" class="text-dark">{{ job.title }}</a></h6>
-                                            <p class="text-muted mb-0"><i class="mdi mdi-bank mr-2"></i>{{ job.company }}</p>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item mr-3">
-                                                    <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{ job.company.address }} , {{ job.company.province }}, {{ job.company.country }}</p>
-                                                </li>
-                                                <br>
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>{{ job.post_date_time|naturaltime }}</p>
-                                                </li>
-                                                <br>
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted mb-0"><i class="mdi mdi-currency-inr mr-2"></i>{{ job.salary|intcomma }} {{ job.pay_mode }}</p>
-                                                </li>
-                                            </ul>
+                                        <div class="col-lg-6 col-md-7">
+                                            <div class="job-list-desc">
+                                                <h6 class="mb-2">
+                                                    <a href="{% url 'job:job_details' job.pk %}" class="text-dark">{{ job.title }}</a>
+                                                </h6>
+                                                <p class="text-muted mb-0">
+                                                    <i class="mdi mdi-bank mr-2"></i>{{ job.company }}
+                                                </p>
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item mr-3">
+                                                        <p class="text-muted mb-0">
+                                                            <i class="mdi mdi-map-marker mr-2"></i>{{ job.company.address }}, 
+                                                            {{ job.company.province }}, {{ job.company.country }}
+                                                        </p>
+                                                    </li>
+                                                    <br>
+                                                    <li class="list-inline-item">
+                                                        <p class="text-muted mb-0">
+                                                            <i class="mdi mdi-clock-outline mr-2"></i>{{ job.post_date_time|naturaltime }}
+                                                        </p>
+                                                    </li>
+                                                    <br>
+                                                    <li class="list-inline-item">
+                                                        <p class="text-muted mb-0">
+                                                            <i class="mdi mdi-currency-inr mr-2"></i>{{ job.salary|intcomma }} {{ job.pay_mode }}
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3">
-                                        <div class="job-list-button-sm text-right">
-                                            <span class="badge badge-success">{{ job.job_type }}</span>
-
-                                            <div class="mt-3">
-                                                <a href="{% url 'job:apply_for_job' job.pk %}" class="btn btn-sm btn-primary">Apply</a>
+                                        <div class="col-lg-3 col-md-3">
+                                            <div class="job-list-button-sm text-right">
+                                                <span class="badge badge-success">{{ job.job_type }}</span>
+                
+                                                <div class="mt-3">
+                                                    <a href="{% url 'job:apply_for_job' job.pk %}" class="btn btn-sm btn-primary">Apply</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                     {% endfor %}
+                        {% if forloop.counter|divisibleby:2 %}
+                        <!-- Close and start a new row after every two jobs -->
+                        </div>
+                        <div class="row">
+                        {% endif %}
+                    {% endfor %}
                 </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mt-4 pt-2">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination job-pagination mb-0 justify-content-center">
+                        {% if jobs.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ jobs.previous_page_number }}" tabindex="-1">
+                                    <i class="mdi mdi-chevron-double-left f-15"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="mdi mdi-chevron-double-left f-15"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+        
+                        {% for num in jobs.paginator.page_range %}
+                            {% if jobs.number == num %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">{{ num }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+        
+                        {% if jobs.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ jobs.next_page_number }}">
+                                    <i class="mdi mdi-chevron-double-right f-15"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-disabled="true">
+                                    <i class="mdi mdi-chevron-double-right f-15"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdown = document.getElementById('id_job_location');
+
+            for (var i = 0; i < dropdown.options.length; i++) {
+                var options = dropdown.options[i];
+                if (option.value === ''){
+                    option.text = 'Select Job Location';
+                    break;
+                }
+            }
+        });
+    </script>
 </section>
 <!-- JOB LIST START -->
 {% endblock content %}

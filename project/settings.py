@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
 # Third party app
     'widget_tweaks',
+    'django_filters',
     
 ]
 MIDDLEWARE = [

@@ -298,11 +298,9 @@ Home
                                                 <div class="registration-form-box">
                                                     <i class="fa fa-list-alt"></i>
                                                     <select id="select-category" class="demo-default">
-                                                        <option value="">Categories...</option>
-                                                        <option value="4">Accounting</option>
-                                                        <option value="1">IT & Software</option>
-                                                        <option value="3">Marketing</option>
-                                                        <option value="5">Banking</option>
+                                                        {% for job in jobs %}
+                                                          <option value="{{ job.category_name }}">{{ job.job_category }}</option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                             </div>
@@ -324,47 +322,6 @@ Home
 </section>
 <!-- end home -->
 
-<!-- popular category start -->
-<section class="section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="section-title text-center mb-4 pb-2">
-                    <h4 class="title title-line pb-5">Popular Category based on Company</h4>
-                    <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project. We'll quickly
-                        match you with the right freelancers.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            {% for company in companies %}
-            <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                <a href="javascript:void(0)">
-                    <div class="popu-category-box bg-light rounded text-center p-4">
-                        <div class="popu-category-icon mb-3">
-                            <i class="mdi mdi-account d-inline-block rounded-pill h3 text-primary"></i>
-                        </div>
-                        <div class="popu-category-content">
-                            <h5 class="mb-2 text-dark title">{{ company.name }}</h5>
-                            <p class="text-success mb-0 rounded">{{ company.job_set.count }} Jobs</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-
-
-        <div class="row justify-content-center">
-            <div class="col-12 text-center mt-4 pt-2">
-                <a href="javascript:void(0)" class="btn btn-primary-outline">Browse All Categories <i
-                        class="mdi mdi-chevron-right"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- popular category end -->
-
 <!-- all jobs start -->
 <section class="section bg-light">
     <div class="container">
@@ -377,31 +334,11 @@ Home
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-9 text-center mt-4 pt-2">
-                <ul class="nav nav-pills nav nav-pills bg-white rounded nav-justified flex-column flex-sm-row"
-                    id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link rounded active" id="recent-job-tab" data-toggle="pill" href="#recent-job"
-                            role="tab" aria-controls="recent-job" aria-selected="true">Recent Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link rounded" id="featured-job-tab" data-toggle="pill" href="#featured-job"
-                            role="tab" aria-controls="featured-job" aria-selected="false">Featured Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link rounded" id="part-job-tab" data-toggle="pill" href="#part-job" role="tab"
-                            aria-controls="part-job" aria-selected="false">Part Time</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link rounded" id="full-job-tab" data-toggle="pill" href="#full-job" role="tab"
-                            aria-controls="full-job" aria-selected="false">Full Time</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
         <div class="row">
             <div class="col-12">
+                <div class="section-title text-center mb-4 pb-2">
+                    <h4 class="title title-line pb-5">featured Jobs</h4>
+                </div>
                 <div class="tab-content mt-2" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="recent-job" role="tabpanel"
                         aria-labelledby="recent-job-tab">
@@ -448,7 +385,7 @@ Home
                                             <div class="col-md-6">
                                             </div>
                                             <div class="col-md-6 text-right">
-                                                <a href="#" class="text-primary">Apply Now <i
+                                                <a href="{% url 'job:apply_for_job' job.pk %}" class="text-primary">Apply Now <i
                                                         class="mdi mdi-chevron-double-right"></i></a>
                                             </div>
                                         </div>
@@ -466,34 +403,18 @@ Home
 
         <!-- end row -->
         <div class="row">
-            <div class="col-lg-12 mt-4 pt-2">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination job-pagination mb-0 justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                <i class="mdi mdi-chevron-double-left f-15"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="mdi mdi-chevron-double-right f-15"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+            <div class="col-lg-12 mt-4 pt-2 text-center">
+                <a href="{% url 'job:all_joblist' %}" class="btn btn-primary">View All Jobs</a>
             </div>
         </div>
+        
     </div>
     <!-- end containar -->
 </section>
 <!-- all jobs end -->
 
 <!-- How it Work start -->
-<section class="section">
+<section class="section mt-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
@@ -504,7 +425,7 @@ Home
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-4 mt-4 pt-2">
                 <div class="how-it-work-box bg-light p-4 text-center rounded shadow">
                     <div class="how-it-work-img position-relative rounded-pill mb-3">
@@ -512,10 +433,8 @@ Home
                             height="50">
                     </div>
                     <div>
-                        <h5>Register an account</h5>
-                        <p class="text-muted">Donec pede justo fringilla vel aliquet nec vulputate eget arcu. In enim
-                            justo rhoncus ut a, justo.</p>
-                        <a href="#" class="text-primary">Read more <i class="mdi mdi-chevron-right"></i></a>
+                        <h5>Start Recruiting Jobs</h5>
+                        <a href="{% url 'accounts:register_recruiter' %}" class="btn btn-primary">Start Recruiting<i class="mdi mdi-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -527,9 +446,7 @@ Home
                     </div>
                     <div>
                         <h5>Search your job</h5>
-                        <p class="text-muted">Aliquam lorem ante dapibus in, viverra feugiatquis a tellus. Phasellus
-                            viverra nulla ut Quisque rutrum.</p>
-                        <a href="#" class="text-primary">Read more <i class="mdi mdi-chevron-right"></i></a>
+                        <a href="{% url 'job:all_joblist' %}" class="btn btn-primary">Search Jobs <i class="mdi mdi-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -541,9 +458,7 @@ Home
                     </div>
                     <div>
                         <h5>Apply for job</h5>
-                        <p class="text-muted">Nullam dictum felis eu pede mollis pretiumetus Integer tincidunt. Cras
-                            dapibus. semper nisi.</p>
-                        <a href="#" class="text-primary">Read more <i class="mdi mdi-chevron-right"></i></a>
+                        <a href="{% url 'accounts:register_candidate' %}" class="btn btn-primary">Apply For Job <i class="mdi mdi-chevron-right"></i></a>
                     </div>
                 </div>
             </div>

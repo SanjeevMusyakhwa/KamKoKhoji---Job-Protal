@@ -4,53 +4,67 @@ Recruiter
 {% endblock title %}
 {% block content %}
 
+<!-- Show alert if the user is a candidate and doesn't have a resume -->
 {% if request.user.is_candidate and not request.user.has_resume %}
 <div class="alert alert-warning alert-dismissible fade show mt-2 ml-5" role="alert">
-  <p class="mt-3">Add Your Resume before applying the jobs <a href="{% url 'resume:add_resume' %}"
-      class="text-danger">Start Now</a> </p>
+  <p class="mt-3">Add your resume before applying for jobs. <a href="{% url 'resume:add_resume' %}" class="text-danger">Start Now</a></p>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 {% endif %}
+
+<!-- Display Django messages -->
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+{% endif %}
+
+<!-- Cards Section -->
 <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 p-2">
-  <!-- Card 1 -->
+  <!-- Card 1: Applied Job List -->
   <div class="col ml-5">
     <div class="card h-100 shadow-sm">
       <div class="card-body">
         <h5 class="card-title">Applied Job List</h5>
         <p class="card-text">
-          Applied Job List
+          View jobs you have applied for.
         </p>
-        <a href="{% url 'job:joblist_percompany' %}" class="btn btn-primary">View all</a>
+        <a href="{% url 'job:joblist_percompany' %}" class="btn btn-primary">View All</a>
       </div>
-
     </div>
   </div>
 
-  <!-- Card 2 -->
+  <!-- Card 2: Applications -->
   <div class="col">
     <div class="card h-100 shadow-sm">
       <div class="card-body">
-        <h5 class="card-title">Application</h5>
+        <h5 class="card-title">Applications</h5>
         <p class="card-text">
-          All Job Application
+          View all job applications.
         </p>
-        <a href="{% url ''}" class="btn btn-primary">View all</a>
+        <!-- Replace '' with a valid URL -->
+        <a href="{% url 'job:manage_appliedjobs' %}" class="btn btn-primary">View All</a>
       </div>
-
     </div>
   </div>
 
-  <!-- Card 3 -->
+  <!-- Card 3: Shortlisted Resumes -->
   <div class="col">
     <div class="card h-100 shadow-sm">
       <div class="card-body">
         <h5 class="card-title">Shortlisted Resumes</h5>
         <p class="card-text">
-          All Shortlisted Resumes
+          View all shortlisted resumes.
         </p>
-        <a href="" class="btn btn-primary">View all</a>
+        <!-- Replace '' with a valid URL -->
+        <a href="" class="btn btn-primary">View All</a>
       </div>
     </div>
   </div>

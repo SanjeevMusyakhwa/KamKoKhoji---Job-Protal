@@ -5,10 +5,14 @@ from .forms import *
 from .models import *
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.utils.http import urlencode
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .filters import JobFilter
 # Create your views here.
 
 User = get_user_model
 
+@login_required
 def createjob(request):
   if request.method == 'POST':
     form = CreateJobForm(request.POST)
@@ -29,6 +33,7 @@ def createjob(request):
     context = {'form': form}
   return render(request, 'job/create_job.html', context)
 
+@login_required
 def update_job(request, pk):
   job = Job.objects.get(id = pk)
   if request.method == 'POST':
@@ -45,6 +50,7 @@ def update_job(request, pk):
     context = {'form':form}
   return render(request, 'job/update_job.html', context)
 
+@login_required
 def delete_job(request,pk):
   job = Job.objects.get(id = pk)
   job.delete()
@@ -65,7 +71,7 @@ def job_details(request, pk):
     context = {'job': job, 'company': company, 'related_jobs': related_jobs}
     return render(request, 'job/job_details.html', context)
 
-
+@login_required
 def add_jobresponsibility(request, pk):
   job = Job.objects.get(pk = pk)
   if request.method == 'POST':
@@ -84,6 +90,7 @@ def add_jobresponsibility(request, pk):
     context = {'form': form, 'job':job}
   return render(request, 'job/add_jobresponsibility.html', context)
 
+@login_required
 def add_jobexperience(request, pk):
   job = Job.objects.get(id = pk)
   if request.method == 'POST':
@@ -102,6 +109,7 @@ def add_jobexperience(request, pk):
     context = {'form': form, 'job':job}
   return render(request, 'job/add_jobexperience.html', context)
 
+@login_required
 def delete_jobresponsibility(request, pk):
   jobres = JobResponsibility.objects.get(id = pk)
   get_job = jobres.job 
@@ -109,7 +117,7 @@ def delete_jobresponsibility(request, pk):
   messages.success(request,'Job Responsibility deleted successfully')
   return redirect(reverse('job:job_details', args=[get_job.pk]))
 
-
+@login_required
 def delete_jobexperience(request, pk):
   jobexp = JobExperience.objects.get(id = pk)
   get_job = jobexp.job 
@@ -119,11 +127,55 @@ def delete_jobexperience(request, pk):
 
 
 def all_joblist(request):
-  jobs = Job.objects.filter(status = 'Active')
-  context = {'jobs': jobs}
-  return render(request, 'job/all_joblist.html', context)
+    # Fetch all jobs with status 'Active' and order by post date
+    jobs = Job.objects.filter(status='Active').order_by('-post_date_time')
+
+    # Apply category filter if selected
+    category_filter = request.GET.get('category', None)
+    if category_filter:
+        jobs = jobs.filter(job_category=category_filter)
+
+    # Apply location filter if selected
+    location_filter = request.GET.get('location', None)
+    if location_filter:
+        jobs = jobs.filter(job_location=location_filter)
+
+    # Initialize paginator with 8 jobs per page
+    paginator = Paginator(jobs, 8)
+
+    # Get the current page number from the GET request
+    page_number = request.GET.get('page')
+
+    try:
+        # Paginate the jobs
+        objects = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page
+        objects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver the last page
+        objects = paginator.page(paginator.num_pages)
+
+    # Get all unique job categories and locations for the dropdowns
+    categories = Job.objects.values_list('job_category', flat=True).distinct()
+    locations = Job.objects.values_list('job_location', flat=True).distinct()
+
+    context = {
+        'jobs': objects,
+        'categories': categories,
+        'locations': locations,
+    }
+    return render(request, 'job/all_joblist.html', context)
+
 
 def apply_for_job(request, pk):
+    # Check if the user is logged in
+    if not request.user.is_authenticated:
+        # Redirect to login with the 'next' parameter to return to this view after login
+        login_url = f"{reverse('accounts:login_user')}?{urlencode({'next': request.path})}"
+        messages.warning(request, 'You must be logged in to apply for a job.')
+        return redirect(login_url)
+
     # Fetch the job or return 404 if not found
     job = get_object_or_404(Job, id=pk)
 
@@ -140,7 +192,7 @@ def apply_for_job(request, pk):
     # Check if the user has already applied for this job
     has_applied = job.jobapplication_set.filter(resume__pk=request.user.resume.pk).exists()
     if has_applied:
-        messages.warning(request, 'You have already applied for this job.')
+        messages.info(request, 'You have already applied for this job.')
     else:
         # Create the job application
         JobApplication.objects.create(job=job, resume=request.user.resume)
@@ -148,19 +200,20 @@ def apply_for_job(request, pk):
 
     return redirect(reverse('job:all_joblist'))
 
-
+@login_required
 def manage_appliedjobs(request):
     applied_jobs = JobApplication.objects.filter(resume=request.user.resume)
     context = {'applied_jobs': applied_jobs}
     return render(request, 'job/manage_appliedjobs.html', context)
 
+@login_required
 def delete_appliedjob(request, pk):
   job_application = JobApplication.objects.get(id = pk)
   job_application.delete()
   messages.success(request,'Applied job deleted successfully')
   return redirect(reverse('job:manage_appliedjobs'))
 
-
+@login_required
 def jobapplicants_perjob(request, pk):
   job = Job.objects.get(id = pk)
   applicants = job.jobapplication_set.all()
@@ -169,6 +222,7 @@ def jobapplicants_perjob(request, pk):
   context = {'applicants': applicants, 'job': job, 'approved': approved, 'declined': declined}
   return render(request, 'job/applicants_perjob.html', context )
 
+@login_required
 def accept_application(request, pk):
   application = JobApplication.objects.get(id = pk)
   application.status = 'Approved'
@@ -176,6 +230,7 @@ def accept_application(request, pk):
   messages.success(request, 'You have accepted this candidate')
   return redirect(reverse('job:jobapplicants_perjob', args=[application.job.pk]))
 
+@login_required
 def reject_application(request, pk):
   application = JobApplication.objects.get(id = pk)
   application.status = 'Declined'
