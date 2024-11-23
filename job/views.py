@@ -130,10 +130,7 @@ def all_joblist(request):
     # Fetch all jobs with status 'Active' and order by post date
     jobs = Job.objects.filter(status='Active').order_by('-post_date_time')
 
-    # Apply category filter if selected
-    category_filter = request.GET.get('category', None)
-    if category_filter:
-        jobs = jobs.filter(job_category=category_filter)
+   
 
     # Apply location filter if selected
     location_filter = request.GET.get('location', None)
@@ -157,12 +154,12 @@ def all_joblist(request):
         objects = paginator.page(paginator.num_pages)
 
     # Get all unique job categories and locations for the dropdowns
-    categories = Job.objects.values_list('job_category', flat=True).distinct()
+
     locations = Job.objects.values_list('job_location', flat=True).distinct()
 
     context = {
         'jobs': objects,
-        'categories': categories,
+        
         'locations': locations,
     }
     return render(request, 'job/all_joblist.html', context)

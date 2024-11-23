@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
-    <link rel="stylesheet" href="{% static 'css/side_nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Fix for Overflow -->
@@ -166,8 +165,6 @@
             {% else %}
             <li><a href="{% url 'website:home' %}">Home</a></li>
             <li><a href="{% url 'job:all_joblist' %}">Jobs</a></li>
-            <li><a href="{% url 'website:contact' %}">Contact</a></li>
-            <li><a href="{% url 'website:about' %}">About Us</a></li>
             {% endif %}
         </ul>
     </div>

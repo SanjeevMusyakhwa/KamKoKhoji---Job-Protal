@@ -7,9 +7,3 @@ def HomePage(request):
   jobs = Job.objects.filter(status='Active').order_by('-post_date_time')[:4]
   companies = Company.objects.all()  # Renamed to avoid confusion with the loop variable
   return render(request, 'website/index.html', {'jobs': jobs, 'companies': companies})
-
-def Contact(request):
-  return render(request, 'website/contact.html')
-
-def About(request):
-  return render(request, 'website/aboutus.html')

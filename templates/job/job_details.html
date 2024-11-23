@@ -64,7 +64,7 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <div class="job-detail border rounded mt-2 p-4">
+            <div class="job-detail border rounded mt-2 mb-2 p-4">
               <div class="job-detail-desc">
                 {% for responsibility in job.jobresponsibility_set.all %}
                 <div class="job-details-desc-item d-flex align-items-center justify-content-between">
@@ -72,7 +72,7 @@
                     <div class="float-left mr-3">
                       <i class="mdi mdi-send text-primary"></i>
                     </div>
-                    <p class="text-muted mb-0">{{ responsibility.name }}
+                    <p class="text-muted mb-3">{{ responsibility.name }}
                     {% if request.user.is_recruiter %}
                     <div class="actions">
                       <a href="{% url 'job:delete_jobresponsibility' responsibility.pk %}" class="text-danger">
@@ -112,7 +112,7 @@
                     <div class="float-left mr-3">
                       <i class="mdi mdi-send text-primary"></i>
                     </div>
-                    <p class="text-muted mb-0">{{ experience.name }}
+                    <p class="text-muted mb-3">{{ experience.name }}
                     {% if request.user.is_recruiter %}
                     <div class="actions">
                       <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger"
