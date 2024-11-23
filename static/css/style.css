@@ -784,7 +784,7 @@ p {
 
 .bg-overlay {
   background-color: rgba(40, 44, 50, 0.7);
-  position: absolute;
+  position:absolute;
   top: 0;
   right: 0;
   left: 0;
@@ -1025,10 +1025,12 @@ p {
   z-index: 99;
   background-color: #fff;
   border: 2px transparent;
-  -webkit-transition: all .5s ease;
-  transition: all .5s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   padding-left: 500px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow effect */
 }
+
 
 #topnav .logo {
   float: left;

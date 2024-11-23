@@ -33,18 +33,15 @@
 
         .side-nav {
             width: 300px;
-            /* Ensure fixed width for the sidebar */
             position: fixed;
-            /* Fix sidebar to the left */
-            top: 89px;
+            top: 77px;
             left: 0;
-            height: 70%;
-            /* Full height */
-            background-color: #f8f9fa;
-            /* Background color for clarity */
+            height: 100%;
+            overflow-y: auto;
+            background-color: #fff;
             z-index: 1000;
-            /* Ensure it stays above other elements */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            border-right: 1px solid #ddd;
         }
 
         .side-navigation-menu {
@@ -56,19 +53,33 @@
         .side-navigation-menu li {
             display: block;
             margin-bottom: 15px;
+            border-bottom: 5px solid #ddd;
+            border-radius: 20px;
+            transition: all 0.3s ease; /* Smooth hover effect */
+        }
+
+        .side-navigation-menu li:hover {
+            background-color: #333; 
+            /* Dark background on hover */
+            border-color: #333; 
+            /* Match border color to the background */
         }
 
         .side-navigation-menu a {
             display: flex;
             align-items: center;
-            padding: 5px 10px;
-            color: #333;
+            padding: 10px 20px;
+            color: #000; 
+            /* Black text color */
             text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 15px;
+            transition: all 0.3s ease;
         }
 
-        .side-navigation-menu a:hover {
-            background-color: #e9ecef;
-            color: #007bff;
+        .side-navigation-menu li:hover a {
+            color:#fff; 
         }
 
         .side-navigation-menu i {
@@ -77,21 +88,23 @@
 
         .content {
             margin-left: 260px;
-            /* Space for sidebar */
             padding: 20px;
         }
     </style>
 </head>
 
 <body>
+    <!-- Preloader -->
     <div id="preloader">
         <div id="status">
-          <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-          </div>
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
         </div>
-      </div>
+    </div>
+
+    <!-- Header -->
     <header id="topnav" class="defaultscroll">
         <div class="container">
             <!-- Authenticated User Info -->
@@ -101,49 +114,66 @@
                     <i class="mdi mdi-account mr-3"></i>{{ request.user.first_name }} {{ request.user.last_name }}
                 </a>
             </div>
+            {% else %}
+            <div class="buy-button">
+                <a href="{% url 'accounts:login_user' %}" class="btn btn-success ml-3">
+                    <i class="mdi mdi-login"></i> Login
+                </a>
+            </div>
+            <div class="buy-button">
+                <a href="{% url 'accounts:register_candidate' %}" class="btn btn-primary ml-3">
+                    <i class="mdi mdi-account-multiple"></i> Candidate
+                </a>
+            </div>
+            <div class="buy-button">
+                <a href="{% url 'accounts:register_recruiter' %}" class="btn btn-info ml-3">
+                    <i class="mdi mdi-account"></i> Recruiter
+                </a>
+            </div>
             {% endif %}
         </div>
     </header>
 
     <!-- Sidebar Navigation -->
     <div id="side-navigation" class="side-nav">
-        <ul class="side-navigation-menu  ml-2 p-2">
+        <ul class="side-navigation-menu ml-2 p-2">
+            {% if request.user.is_authenticated %}
             {% if request.user.is_recruiter %}
             <li><a href="{% url 'dashboard:dashboard_recruiter' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
             {% if request.user.has_company %}
-            <li><a href="{% url 'company:company_detail' request.user.company.pk %}"><i
-                        class="mdi mdi-domain"></i>Company Details</a></li>
+            <li><a href="{% url 'company:company_detail' request.user.company.pk %}"><i class="mdi mdi-domain"></i> Company Details</a></li>
             <li><a href="{% url 'job:create_job' %}"><i class="mdi mdi-briefcase"></i> Post a Job</a></li>
-            <li><a href="{% url 'job:joblist_percompany' %}"><i class="mdi mdi-domain"></i>Manage Jobs</a></li>
+            <li><a href="{% url 'job:joblist_percompany' %}"><i class="mdi mdi-domain"></i> Manage Jobs</a></li>
             {% else %}
-            <li><a href="{% url 'company:add_company' %}"><i class="mdi mdi-domain"></i>Add Company</a></li>
+            <li><a href="{% url 'company:add_company' %}"><i class="mdi mdi-domain"></i> Add Company</a></li>
             {% endif %}
-            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a>
-            </li>
-            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update
-                    Profile</a></li>
+            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a></li>
+            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update Profile</a></li>
             <li><a href="{% url 'accounts:logout_user' %}"><i class="mdi mdi-logout"></i> Logout</a></li>
             {% elif request.user.is_candidate %}
             <li><a href="{% url 'dashboard:dashboard_candidate' %}"><i class="mdi mdi-home"></i> Dashboard</a></li>
             {% if request.user.has_resume %}
-            <li><a href="{% url 'job:all_joblist' %}"><i class="mdi mdi-domain"></i>Apply for Jobs</a></li>
-            <li><a href="{% url 'resume:resume_details' request.user.resume.pk %}"><i class="mdi mdi-domain"></i>Resume Details </a></li>
-            <li><a href="{% url 'job:manage_appliedjobs' %}"><i class="mdi mdi-domain"></i>Manage Applied Jobs</a></li>
+            <li><a href="{% url 'job:all_joblist' %}"><i class="mdi mdi-domain"></i> Apply for Jobs</a></li>
+            <li><a href="{% url 'resume:resume_details' request.user.resume.pk %}"><i class="mdi mdi-domain"></i> Resume Details</a></li>
+            <li><a href="{% url 'job:manage_appliedjobs' %}"><i class="mdi mdi-domain"></i> Manage Applied Jobs</a></li>
             {% else %}
-            <li><a href="{% url 'resume:add_resume' %}"><i class="mdi mdi-domain"></i>Add Resume</a></li>
+            <li><a href="{% url 'resume:add_resume' %}"><i class="mdi mdi-domain"></i> Add Resume</a></li>
             {% endif %}
-            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a>
-            </li>
-            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update
-                    Profile</a></li>
+            <li><a href="{% url 'accounts:change_password' %}"><i class="mdi mdi-key-change"></i> Change Password</a></li>
+            <li><a href="{% url 'accounts:update_profile' request.user.pk %}"><i class="mdi mdi-account"></i> Update Profile</a></li>
             <li><a href="{% url 'accounts:logout_user' %}"><i class="mdi mdi-logout"></i> Logout</a></li>
+            {% endif %}
+            {% else %}
+            <li><a href="{% url 'website:home' %}">Home</a></li>
+            <li><a href="{% url 'job:all_joblist' %}">Jobs</a></li>
+            <li><a href="{% url 'website:contact' %}">Contact</a></li>
+            <li><a href="{% url 'website:about' %}">About Us</a></li>
             {% endif %}
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="content mt-5">
-
         {% block content %}
         {% endblock content %}
     </div>
@@ -163,7 +193,6 @@
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/counter.int.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
-    <script src="{% static 'js/home.js' %}"></script>
 </body>
 
 </html>
