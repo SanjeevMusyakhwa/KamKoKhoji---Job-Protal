@@ -106,6 +106,12 @@
     <!-- Header -->
     <header id="topnav" class="defaultscroll">
         <div class="container">
+            <!-- Logo -->
+            <div>
+                <a href="{% url 'website:home' %}" class="logo text-uppercase text-dark font-weight-bold">
+                    Kam ko Khoji
+                </a>
+            </div>
             <!-- Authenticated User Info -->
             {% if request.user.is_authenticated %}
             <div class="buy-button">
