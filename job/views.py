@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import urlencode
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .filters import JobFilter
+from django.db.models import Q
+
 # Create your views here.
 
 User = get_user_model
@@ -126,15 +128,26 @@ def delete_jobexperience(request, pk):
   return redirect(reverse('job:job_details', args=[get_job.pk]))
 
 
+
 def all_joblist(request):
     # Fetch all jobs with status 'Active' and order by post date
     jobs = Job.objects.filter(status='Active').order_by('-post_date_time')
 
-   
+    # Get search and location filters from GET request
+    search_query = request.GET.get('q', '').strip()  # Fixed key to match the template
+    location_filter = request.GET.get('location', '').strip()
 
-    # Apply location filter if selected
-    location_filter = request.GET.get('location', None)
-    if location_filter:
+    # Apply filters only if values are provided
+    if search_query and location_filter:
+        jobs = jobs.filter(
+            Q(title__icontains=search_query) | Q(company__name__icontains=search_query),
+            job_location=location_filter
+        )
+    elif search_query:
+        jobs = jobs.filter(
+            Q(title__icontains=search_query) | Q(company__name__icontains=search_query)
+        )
+    elif location_filter:
         jobs = jobs.filter(job_location=location_filter)
 
     # Initialize paginator with 8 jobs per page
@@ -144,23 +157,20 @@ def all_joblist(request):
     page_number = request.GET.get('page')
 
     try:
-        # Paginate the jobs
         objects = paginator.page(page_number)
     except PageNotAnInteger:
-        # If page is not an integer, deliver the first page
         objects = paginator.page(1)
     except EmptyPage:
-        # If page is out of range, deliver the last page
         objects = paginator.page(paginator.num_pages)
 
-    # Get all unique job categories and locations for the dropdowns
-
+    # Get all unique job locations for the dropdown
     locations = Job.objects.values_list('job_location', flat=True).distinct()
 
     context = {
         'jobs': objects,
-        
         'locations': locations,
+        'search_query': search_query,  # Ensures the search input retains value
+        'location_filter': location_filter,  # Retains selected location
     }
     return render(request, 'job/all_joblist.html', context)
 

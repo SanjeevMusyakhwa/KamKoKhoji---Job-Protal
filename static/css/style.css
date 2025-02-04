@@ -603,6 +603,7 @@ button:not(:disabled) {
 
 .form-group {
   margin-bottom: 20px;
+  display: block;
 }
 
 .form-group label {
