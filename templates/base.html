@@ -22,76 +22,8 @@
     <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <!-- Fix for Overflow -->
-    <style>
-        body {
-            overflow-x: hidden;
-            /* Prevent horizontal scrolling */
-        }
-
-        .side-nav {
-            width: 300px;
-            position: fixed;
-            top: 77px;
-            left: 0;
-            height: 100%;
-            overflow-y: auto;
-            background-color: #fff;
-            z-index: 1000;
-            padding: 20px 0;
-            border-right: 1px solid #ddd;
-        }
-
-        .side-navigation-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .side-navigation-menu li {
-            display: block;
-            margin-bottom: 15px;
-            border-bottom: 5px solid #ddd;
-            border-radius: 20px;
-            transition: all 0.3s ease; /* Smooth hover effect */
-        }
-
-        .side-navigation-menu li:hover {
-            background-color: #333; 
-            /* Dark background on hover */
-            border-color: #333; 
-            /* Match border color to the background */
-        }
-
-        .side-navigation-menu a {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            color: #000; 
-            /* Black text color */
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .side-navigation-menu li:hover a {
-            color:#fff; 
-        }
-
-        .side-navigation-menu i {
-            margin-right: 10px;
-        }
-
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
 </head>
-
 <body>
     <!-- Preloader -->
     <div id="preloader">
