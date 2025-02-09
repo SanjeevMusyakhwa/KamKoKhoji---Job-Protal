@@ -10,10 +10,11 @@ body {
   left: 0;
   height: 100%;
   overflow-y: auto;
-  background-color: #fff;
+  background-color:#36454F;
   z-index: 1000;
   padding: 20px 0;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid;
+  
 }
 
 .side-navigation-menu {
@@ -25,8 +26,8 @@ body {
 .side-navigation-menu li {
   display: block;
   margin-bottom: 15px;
-  border-bottom: 5px solid #ddd;
-  border-radius: 20px;
+  border-bottom: 2px solid;
+  border-radius: 20px;;
   transition: all 0.3s ease; /* Smooth hover effect */
 }
 
@@ -41,7 +42,7 @@ body {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  color: #000; 
+  color: #fff;
   /* Black text color */
   text-decoration: none;
   font-size: 18px;

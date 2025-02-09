@@ -69,7 +69,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff
+  background-color: #36454F
 }
 
 [tabindex="-1"]:focus {
@@ -408,7 +408,8 @@ h3 {
 
 .h4,
 h4 {
-  font-size: 1.5rem
+  font-size: 1.5rem;
+  color: #fff;
 }
 
 .h5,
@@ -2121,10 +2122,10 @@ pre code {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
+  color: #28282B;
+  background-color: ;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid #28282B;
   border-radius: .25rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
@@ -7110,14 +7111,14 @@ button.bg-light:hover {
 }
 
 .bg-dark {
-  background-color: #343a40 !important
+  background-color: #28282B !important
 }
 
 a.bg-dark:focus,
 a.bg-dark:hover,
 button.bg-dark:focus,
 button.bg-dark:hover {
-  background-color: #1d2124 !important
+  background-color: #28282B !important
 }
 
 .bg-white {

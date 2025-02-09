@@ -7,19 +7,19 @@
 {% block content %}
 <section class="section">
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
       <div class="col-lg-10">
-        <div class="rounded shadow bg-white p-4">
+        <div class="rounded shadow bg-dark p-4">
           <div class="custom-form">
             <div id="message3"></div>
             <form method="post" action="{% url 'accounts:update_profile' request.user.pk %}" name="contact-form" id="contact-form3">
               {% csrf_token %}
-              <h4 class="text-dark mb-3">Update Profile</h4>
+              <h4 class="text-white text-center mb-3">Update Profile</h4>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Active User</label>
-                    <input type="password" class="form-control" placeholder="{{ request.user.first_name }} {{ request.user.last_name }}" readonly>
+                    <label class="text-white">Active User</label>
+                    <input type="text" class="form-control" placeholder="{{ request.user.first_name }} {{ request.user.last_name }}" readonly>
                   </div>
                 </div>
               </div>
@@ -27,14 +27,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">First Name</label>
+                    <label class="text-white">First Name</label>
                     {{ form.first_name|add_class:"form-control" }}
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-group app-label mt-2">
-                    <label class="text-muted">Last Name</label>
+                    <label class="text-white">Last Name</label>
                     {{ form.last_name|add_class:"form-control" }}                  
                 </div>
               </div>

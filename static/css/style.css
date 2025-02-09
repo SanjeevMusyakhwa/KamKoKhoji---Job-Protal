@@ -327,7 +327,6 @@ File: main stylesheet
 }
 
 .form-control:disabled, .form-control[readonly] {
-  background-color: transparent;
   opacity: 1;
 }
 
@@ -609,6 +608,7 @@ button:not(:disabled) {
 .form-group label {
   font-size: 14px;
   font-weight: 700;
+  color: #fff;
 }
 
 .form-group .form-control {
@@ -1024,7 +1024,7 @@ p {
   left: 0;
   top: 0;
   z-index: 99;
-  background-color: #fff;
+  background-color: #36454F;
   border: 2px transparent;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -1154,7 +1154,7 @@ p {
 
 #topnav .navigation-menu > li > a {
   display: block;
-  color: #000;
+  color: #fff;
   font-size: 13px;
   background-color: transparent !important;
   font-weight: 700;
@@ -1188,7 +1188,7 @@ p {
 }
 
 #topnav.scroll {
-  background: #ffffff;
+  background: #36454F;
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
 }
@@ -1343,10 +1343,11 @@ p {
     min-height: 62px;
   }
   #topnav .navigation-menu > li:hover > .menu-arrow {
-    border-color: #ffffff;
+    border-color: #ffff;
   }
   #topnav .navigation-menu > li:hover > a, #topnav .navigation-menu > li.active > a {
-    color: black;
+    color: #25a06e;
+    font-weight: bolder;
   }
   #topnav .navigation-menu > li .submenu {
     position: absolute;
@@ -1453,7 +1454,7 @@ p {
 
 @media (max-width: 991px) {
   #topnav {
-    background-color: #ffffff;
+    background-color: #36454F;
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
             box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
     min-height: 74px;

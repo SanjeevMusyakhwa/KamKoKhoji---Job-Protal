@@ -10,8 +10,8 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-lg-12">
-        <h4 class="text-dark mb-3">{{ job.title }}</h4>
+      <div class="col-lg-12 mt-5">
+        <h4 class="text-white mb-3">{{ job.title }}</h4>
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -41,21 +41,21 @@
             <img src="{% static 'images/featured-job/img-4.png' %}" alt=""
               class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
             <div class="job-detail-com-desc overflow-hidden d-block">
-              <h4 class="mb-2"><a href="{% url 'job:job_details' job.pk %}" class="text-dark">{{ job.title }}</a></h4>
-              <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i>{{ job.company.name }}</p>
-              <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{ job.company.address }}, {{job.company.province }}, {{ job.company.country }}</p>
+              <h4 class="mb-2"><a href="{% url 'job:job_details' job.pk %}" class="text-white">{{ job.title }}</a></h4>
+              <p class="text-white mb-0"><i class="mdi mdi-link-variant mr-2"></i>{{ job.company.name }}</p>
+              <p class="text-white mb-0"><i class="mdi mdi-map-marker mr-2"></i>{{ job.company.address }}, {{job.company.province }}, {{ job.company.country }}</p>
             </div>
           </div>
 
           <div class="job-detail-desc mt-4">
-            <h5 class="text-dark mt-4">Job Description</h5>
-            <p class="text-muted mb-0">{{ job.job_description }}</p>
+            <h5 class="text-white mt-4">Job Description</h5>
+            <p class="text-white mb-0">{{ job.job_description }}</p>
           </div>
         </div>
 
         <div class="row align-items-center mt-4">
           <div class="col-lg-12 d-flex justify-content-between">
-            <h5 class="text-dark">Key Responsibilities :</h5>
+            <h5 class="text-white">Key Responsibilities :</h5>
             {% if request.user.is_recruiter %}
             <a href="{% url 'job:add_jobresponsibility' job.pk %}" class="btn btn-success">Add Responsibilities</a>
             {% endif %}
@@ -72,7 +72,7 @@
                     <div class="float-left mr-3">
                       <i class="mdi mdi-send text-primary"></i>
                     </div>
-                    <p class="text-muted mb-3">{{ responsibility.name }}
+                    <p class="text-white mb-3">{{ responsibility.name }}
                     {% if request.user.is_recruiter %}
                     <div class="actions">
                       <a href="{% url 'job:delete_jobresponsibility' responsibility.pk %}" class="text-danger">
@@ -85,7 +85,7 @@
 
                 </div>
                 {% empty %}
-                <p class="text-muted">No responsibilities added yet.</p>
+                <p class="text-white">No responsibilities added yet.</p>
                 {% endfor %}
               </div>
             </div>
@@ -95,7 +95,7 @@
 
         <div class="row align-items-center mt-4">
           <div class="col-lg-12 d-flex justify-content-between">
-            <h5 class="text-dark">Experiences :</h5>
+            <h5 class="text-white">Experiences :</h5>
             {% if request.user.is_recruiter %}
             <a href="{% url 'job:add_jobexperience' job.pk %}" class="btn btn-success">Add Experiences</a>
             {% endif %}
@@ -112,7 +112,7 @@
                     <div class="float-left mr-3">
                       <i class="mdi mdi-send text-primary"></i>
                     </div>
-                    <p class="text-muted mb-3">{{ experience.name }}
+                    <p class="text-white mb-3">{{ experience.name }}
                     {% if request.user.is_recruiter %}
                     <div class="actions">
                       <a href="{% url 'job:delete_jobexperience' experience.pk %}" class="text-danger"
@@ -126,7 +126,7 @@
 
                 </div>
                 {% empty %}
-                <p class="text-muted">No job experiences added yet.</p>
+                <p class="text-white">No job experiences added yet.</p>
                 {% endfor %}
               </div>
             </div>
@@ -147,31 +147,31 @@
                           <img src="{% static 'images/featured-job/img-5.png' %}" alt=""
                                height="50" class="float-left shadow rounded-pill mr-3">
                           <div class="d-block overflow-hidden">
-                              <h6 class="text-muted font-weight-light float-right mb-0">
+                              <h6 class="text-white font-weight-light float-right mb-0">
                                   <i class="mdi mdi-clock-outline mr-1"></i>{{ related_job.post_date_time|timesince }}
                               </h6>
                               <h5 class="mb-1">
-                                  <a href="{% url 'job:job_details' related_job.pk %}" class="text-dark">
+                                  <a href="{% url 'job:job_details' related_job.pk %}" class="text-white">
                                       {{ related_job.title }}
                                   </a>
                               </h5>
-                              <small class="text-muted font-weight-bold">
-                                  <i class="mdi mdi-bank text-muted"></i>{{ related_job.company.primary_industry }}
+                              <small class="text-white font-weight-bold">
+                                  <i class="mdi mdi-bank text-white"></i>{{ related_job.company.primary_industry }}
                               </small>
-                              <small class="text-muted font-weight-bold ml-2">
-                                  <i class="mdi mdi-timer-sand text-muted"></i>{{ related_job.job_type }}
+                              <small class="text-white font-weight-bold ml-2">
+                                  <i class="mdi mdi-timer-sand text-white"></i>{{ related_job.job_type }}
                               </small>
-                              <small class="text-muted font-weight-bold ml-2">
+                              <small class="text-white font-weight-bold ml-2">
                                   <i class="mdi mdi-map-marker mr-2"></i>{{ related_job.company.address }}
                               </small>
-                              <small class="text-muted font-weight-bold ml-2">
-                                  <i class="mdi mdi-currency-inr text-muted"></i>{{ related_job.salary|intcomma }}
+                              <small class="text-white font-weight-bold ml-2">
+                                  <i class="mdi mdi-currency-inr text-white"></i>{{ related_job.salary|intcomma }}
                               </small>
                           </div>
                       </div>
                   {% endfor %}
               {% else %}
-                  <p class="text-muted">No other jobs available at this time.</p>
+                  <p class="text-white">No other jobs available at this time.</p>
               {% endif %}
           </div>
           
@@ -181,61 +181,61 @@
 
       <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
         <div class="job-detail border rounded p-4">
-          <h5 class="text-muted text-center pb-2"><i class="mdi mdi-map-marker mr-2"></i>Location</h5>
+          <h5 class="text-white text-center pb-2"><i class="mdi mdi-map-marker mr-2"></i>Location</h5>
           <div class="job-detail-location pt-4 border-top">
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-bank text-muted"></i>
+                <i class="mdi mdi-bank text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.company.name }}</p>
+              <p class="text-white mb-2">: {{ job.company.name }}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-bank text-muted"></i>
+                <i class="mdi mdi-bank text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.company.primary_industry }}</p>
+              <p class="text-white mb-2">: {{ job.company.primary_industry }}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-email text-muted"></i>
+                <i class="mdi mdi-email text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.company.email }}</p>
+              <p class="text-white mb-2">: {{ job.company.email }}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-web text-muted"></i>
+                <i class="mdi mdi-web text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.company.website }}</p>
+              <p class="text-white mb-2">: {{ job.company.website }}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-cellphone-iphone text-muted"></i>
+                <i class="mdi mdi-cellphone-iphone text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.company.phone_number}}</p>
+              <p class="text-white mb-2">: {{ job.company.phone_number}}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-view-grid text-muted"></i>
+                <i class="mdi mdi-view-grid text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.job_category}}</p>
+              <p class="text-white mb-2">: {{ job.job_category}}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-currency-inr text-muted"></i>
+                <i class="mdi mdi-currency-inr text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.salary|intcomma }} per {{ job.pay_mode }}</p>
+              <p class="text-white mb-2">: {{ job.salary|intcomma }} per {{ job.pay_mode }}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-timer-sand text-muted"></i>
+                <i class="mdi mdi-timer-sand text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.job_type }}</p>
+              <p class="text-white mb-2">: {{ job.job_type }}</p>
             </div>
             <div class="job-details-desc-item">
               <div class="float-left mr-2">
-                <i class="mdi mdi-clock-outline text-muted"></i>
+                <i class="mdi mdi-clock-outline text-white"></i>
               </div>
-              <p class="text-muted mb-2">: {{ job.post_date_time|naturaltime }}</p>
+              <p class="text-white mb-2">: {{ job.post_date_time|naturaltime }}</p>
             </div>
           </div>
         </div>

@@ -5,9 +5,9 @@
 {% block content %}
    <!-- Hero Start -->
    <div class="col-lg-4 col-md-6">
-    <div class="login-page bg-white shadow rounded p-4">
+    <div class="login-page bg-dark shadow rounded p-4">
         <div class="text-center">
-            <h4 class="mb-4">Login</h4>  
+            <h4 class="mb-4 text-white">Login</h4>  
         </div>
         <form class="login-form" method="post" action="{% url 'accounts:login_user' %}">
           {% csrf_token %}
@@ -32,7 +32,7 @@
                     <button class="btn btn-primary w-100" type="submit">Sign in</button>
                 </div>
                 <div class="col-12 text-center">
-                    <p class="mb-0 mt-3"><small class="text-dark mr-2">Don't have an account ?</small> <a href="{% url 'accounts:register_candidate' %}" class="text-dark font-weight-bold">Sign Up</a></p>
+                    <p class="mb-0 mt-3"><small class="text-white mr-2">Don't have an account ?</small> <a href="{% url 'accounts:register_candidate' %}" class="text-white font-weight-bold">Sign Up</a></p>
                 </div>
             </div>
         </form>

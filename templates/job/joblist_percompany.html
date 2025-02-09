@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="container-fluid p-5">
-  <h2 class="text-center mt-0">Manage Jobs</h2>
+  <h2 class="text-center mt-0 text-white">Manage Jobs</h2>
 
   <!-- Responsive Table -->
   <div class="table-responsive">
@@ -27,19 +27,19 @@
       <tbody>
         {% for job in jobs %}
         <tr>
-          <td>{{ forloop.counter }}</td>
+          <td class="text-white">{{ forloop.counter }}</td>
           <td class="text-truncate" style="max-width: 150px;">
-            <a href="{% url 'company:company_detail' job.company.pk %}" class="text-dark">{{ job.company }}</a></td>
-          <td class="text-truncate" style="max-width: 200px;">
-            <a href="{% url 'job:job_details' job.pk %}" class="text-dark">
+            <a href="{% url 'company:company_detail' job.company.pk %}" class="text-white">{{ job.company }}</a></td>
+          <td class="text-truncate text-white" style="max-width: 200px;">
+            <a href="{% url 'job:job_details' job.pk %}" class="text-white">
             {{ job.title }} </a><br> <i class="mdi mdi-map-marker"></i>{{ job.company.address }}
           </td>
-          <td> <a href="{% url 'job:jobapplicants_perjob' job.pk %}"> {{ job.jobapplication_set.all.count }} Applied </a></td>
-          <td>
+          <td> <a href="{% url 'job:jobapplicants_perjob' job.pk %}" class="text-white"> {{ job.jobapplication_set.all.count }} Applied </a></td>
+          <td class="text-white">
             {{ job.date_posted }}<br>
             <span>{{ job.expiry_date }}</span>
           </td>
-          <td>{{ job.salary }}</td>
+          <td class="text-white">{{ job.salary }}</td>
           <td class="status">
             {% if job.status == 'Pending' %}
               <span class="text-warning">Pending</span>
