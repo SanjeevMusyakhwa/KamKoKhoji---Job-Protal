@@ -154,11 +154,11 @@ File: main stylesheet
 }
 
 .btn.btn-primary, .btn.btn-secondary, .btn.btn-success, .btn.btn-danger, .btn.btn-info, .btn.btn-warning, .btn.btn-dark {
-  color: #ffffff !important;
+  color:#fff  !important;
 }
 
 .btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary:active, .btn.btn-primary.active, .btn.btn-primary.focus, .btn.btn-secondary:hover, .btn.btn-secondary:focus, .btn.btn-secondary:active, .btn.btn-secondary.active, .btn.btn-secondary.focus, .btn.btn-success:hover, .btn.btn-success:focus, .btn.btn-success:active, .btn.btn-success.active, .btn.btn-success.focus, .btn.btn-danger:hover, .btn.btn-danger:focus, .btn.btn-danger:active, .btn.btn-danger.active, .btn.btn-danger.focus, .btn.btn-info:hover, .btn.btn-info:focus, .btn.btn-info:active, .btn.btn-info.active, .btn.btn-info.focus, .btn.btn-warning:hover, .btn.btn-warning:focus, .btn.btn-warning:active, .btn.btn-warning.active, .btn.btn-warning.focus, .btn.btn-dark:hover, .btn.btn-dark:focus, .btn.btn-dark:active, .btn.btn-dark.active, .btn.btn-dark.focus {
-  color: #ffffff !important;
+  color: #40ce6a !important;
 }
 
 .btn.btn-primary-outline:hover, .btn.btn-primary-outline:focus, .btn.btn-primary-outline:active, .btn.btn-primary-outline.active, .btn.btn-primary-outline.focus, .btn.btn-secondary-outline:hover, .btn.btn-secondary-outline:focus, .btn.btn-secondary-outline:active, .btn.btn-secondary-outline.active, .btn.btn-secondary-outline.focus, .btn.btn-success-outline:hover, .btn.btn-success-outline:focus, .btn.btn-success-outline:active, .btn.btn-success-outline.active, .btn.btn-success-outline.focus, .btn.btn-danger-outline:hover, .btn.btn-danger-outline:focus, .btn.btn-danger-outline:active, .btn.btn-danger-outline.active, .btn.btn-danger-outline.focus, .btn.btn-info-outline:hover, .btn.btn-info-outline:focus, .btn.btn-info-outline:active, .btn.btn-info-outline.active, .btn.btn-info-outline.focus, .btn.btn-warning-outline:hover, .btn.btn-warning-outline:focus, .btn.btn-warning-outline:active, .btn.btn-warning-outline.active, .btn.btn-warning-outline.focus, .btn.btn-dark-outline:hover, .btn.btn-dark-outline:focus, .btn.btn-dark-outline:active, .btn.btn-dark-outline.active, .btn.btn-dark-outline.focus {

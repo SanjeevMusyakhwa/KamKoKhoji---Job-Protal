@@ -40,14 +40,19 @@
         <div class="container">
             <!-- Logo -->
             <div>
-                <a href="{% url 'website:home' %}" class="logo text-uppercase text-white font-weight-bold">
+                {% if request.user.is_recruiter %}
+                <a href="{% url 'dashboard:dashboard_recruiter' %}" class="logo text-uppercase text-white font-weight-bold">
                     JobSphere
                 </a>
+                {% else %}
+                <a href="{% url 'website:home' %}" class="logo text-uppercase text-white font-weight-bold">
+                    JobSphere
+                {% endif %}
             </div>
             <!-- Authenticated User Info -->
             {% if request.user.is_authenticated %}
             <div class="buy-button">
-                <a href="#" class="text-center text-dark">
+                <a href="#" class="text-center text-white">
                     <i class="mdi mdi-account mr-3"></i>{{ request.user.first_name }} {{ request.user.last_name }}
                 </a>
             </div>

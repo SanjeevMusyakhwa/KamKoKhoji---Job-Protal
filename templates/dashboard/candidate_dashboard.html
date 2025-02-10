@@ -15,7 +15,7 @@ Candidate
 {% endif %}
 
 <!-- Display Django messages -->
-{% if messages %}
+<!-- {% if messages %}
   {% for message in messages %}
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
     {{ message }}
@@ -24,10 +24,15 @@ Candidate
     </button>
   </div>
   {% endfor %}
-{% endif %}
+{% endif %} -->
+
+
+
 
 <!-- Cards Section -->
 <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 p-2">
+  {% include "job/all_joblist/job_message/message.html" %}
+
   <!-- Card 1: Applied Job List -->
   <div class="col ml-5">
     <div class="card h-100 shadow-sm">
